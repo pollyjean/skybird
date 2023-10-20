@@ -1,7 +1,7 @@
 "use client";
 
-import Button from "@/components/button";
-import Input from "@/components/input";
+import Button from "@/components/Button";
+import Input from "@/components/Input";
 import { cls } from "@/libs/utils";
 import { useState } from "react";
 

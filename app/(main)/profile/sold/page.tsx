@@ -1,5 +1,5 @@
-import Item from "@/components/item";
-import Layout from "@/components/layout";
+import Item from "@/components/Item";
+import Layout from "@/components/Layout";
 
 const Sold = () => {
   return (

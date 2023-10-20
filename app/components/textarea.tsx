@@ -17,7 +17,7 @@ export default function TextArea({ label, name, ...rest }: TextAreaProps) {
       ) : null}
       <textarea
         id={name}
-        className="mt-1 shadow-sm w-full focus:ring-orange-500 rounded-md border-gray-300 focus:border-orange-500 "
+        className="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500 "
         rows={4}
         {...rest}
       />

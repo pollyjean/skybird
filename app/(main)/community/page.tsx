@@ -1,5 +1,5 @@
-import FloatingButton from "@/components/floating-button";
-import Layout from "@/components/layout";
+import FloatingButton from "@/components/FloatingButton";
+import Layout from "@/components/Layout";
 import Link from "next/link";
 
 const Community = () => {
