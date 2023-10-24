@@ -21,3 +21,36 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
+
+// model User {
+//   id Int @id @default(autoincrement())
+//   username String?
+//   email String @unique
+//   password String?
+//   createdAt DateTime @default(now())
+//   likes Like[]
+//   tweets Tweet[]
+// }
+
+// model Tweet {
+//   id Int @id @default(autoincrement())
+//   text String
+//   createdAt DateTime @default(now())
+//   author User @relation(fields: [authorId], references: [id])
+//   authorId Int
+//   likes Like[]
+
+//   @@index([authorId])
+// }
+
+// model Like {
+//   id Int @id @default(autoincrement())
+//   createdAt DateTime @default(now())
+//   user User @relation(fields: [userId], references: [id])
+//   userId Int
+//   tweet Tweet @relation(fields: [tweetId], references: [id])
+//   tweetId Int
+
+//   @@index([tweetId])
+//   @@index([userId])
+// }

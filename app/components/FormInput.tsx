@@ -10,6 +10,9 @@ const FormInput = () => {
         placeholder="E-Mail"
         {...register("E-Mail", { required: true })}
       />
+      <input
+        type="text"
+        placeholder=""
     </div>
   );
 };
