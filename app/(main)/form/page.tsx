@@ -1,19 +1,26 @@
 "use client";
 
-import FormInput from "@/components/FormInput";
+import FormInputs from "@/components/FormInputs";
 import { FormValues } from "@/libs/constants";
-import { FormProvider, useForm } from "react-hook-form";
+import { useState } from "react";
+import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 
-const Form = () => {
-  const { register, handleSubmit } = useForm<FormValues>();
+function Form() {
+  const [message, setMessage] = useState("");
+  const methods = useForm<FormValues>({ mode: "onChange" });
+  const onSubmit: SubmitHandler<FormValues> = () => {
+    setMessage("Thank you");
+  };
+
   return (
     <FormProvider {...methods}>
-      <form onSubmit={handleSubmit()}>
-        <FormInput />
-        <button type="submit">Submit</button>
+      <form onSubmit={methods.handleSubmit(onSubmit)}>
+        <FormInputs />
+        <button type="submit">Log in</button>
+        {message.length > 0 && <div>{message}</div>}
       </form>
     </FormProvider>
   );
-};
+}
 
 export default Form;
