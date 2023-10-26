@@ -1,16 +1,26 @@
+import { EnterForms } from "@/libs/client/constants";
+import { useFormContext } from "react-hook-form";
+
 interface InputProps {
-  label: string;
   name: string;
+  label: string;
+  type: "email" | "text" | "number";
   kind?: "text" | "phone" | "price";
-  [key: string]: any;
+  pattern?: string;
+  required?: string | true | false;
+  placeholder?: string;
 }
 
 export default function Input({
-  label,
   name,
+  label,
+  type,
   kind = "text",
-  ...rest
+  pattern,
+  required,
+  placeholder,
 }: InputProps) {
+  const { register } = useFormContext<EnterForms>();
   return (
     <div>
       <label
@@ -23,7 +33,8 @@ export default function Input({
         <div className="relative flex items-center rounded-md shadow-sm">
           <input
             id={name}
-            {...rest}
+            type={type}
+            {...register("email", { required: required })}
             className="w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-orange-500 focus:outline-none focus:ring-orange-500"
           />
         </div>
@@ -35,7 +46,8 @@ export default function Input({
           </div>
           <input
             id={name}
-            {...rest}
+            type={type}
+            {...register("phone", { required: required })}
             className="w-full appearance-none rounded-md border border-gray-300 px-3 py-2 pl-7 placeholder-gray-400 shadow-sm focus:border-orange-500 focus:outline-none focus:ring-orange-500"
           />
           <div className="pointer-events-none absolute right-0 flex items-center pr-3">
@@ -50,7 +62,15 @@ export default function Input({
           </span>
           <input
             id={name}
-            {...rest}
+            type={type}
+            pattern={pattern}
+            {...register("phone", {
+              pattern: {
+                value: /^((01\d{1})|([2-9]\d{1,2}))-?\d{3,4}-?\d{4}$/,
+                message: "Enter phone number",
+              },
+              required: required,
+            })}
             className="w-full appearance-none rounded-md rounded-l-none border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-orange-500 focus:outline-none focus:ring-orange-500"
           />
         </div>

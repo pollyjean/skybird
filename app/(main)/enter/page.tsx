@@ -2,13 +2,28 @@
 
 import Button from "@/components/Button";
 import Input from "@/components/Input";
-import { cls } from "@/libs/utils";
+import { EnterForms } from "@/libs/client/constants";
+import { cls } from "@/libs/client/utils";
 import { useState } from "react";
+import { FormProvider, useForm } from "react-hook-form";
+import useMutation from "../../libs/client/useMutation";
 
 const Enter = () => {
+  const [enter, { loading, data, error }] = useMutation("/api/users/enter");
+  const methods = useForm<EnterForms>({ mode: "onChange" });
   const [method, setMethod] = useState<"email" | "phone">("email");
-  const onEmailClick = () => setMethod("email");
-  const onPhoneClick = () => setMethod("phone");
+  const onEmailClick = () => {
+    methods.reset();
+    setMethod("email");
+  };
+  const onPhoneClick = () => {
+    methods.reset();
+    setMethod("phone");
+  };
+  const onSubmit = (forms: EnterForms) => {
+    enter(forms);
+  };
+  console.log(loading, data, error);
   return (
     <div className="mt-16 px-4">
       <h3 className="text-center text-3xl font-bold">Enter to Carrot</h3>
@@ -40,24 +55,35 @@ const Enter = () => {
             </button>
           </div>
         </div>
-        <form className="mt-8 flex flex-col space-y-4">
-          {method === "email" ? (
-            <Input name="email" label="Email address" type="email" required />
-          ) : null}
-          {method === "phone" ? (
-            <Input
-              name="phone"
-              label="Phone number"
-              type="number"
-              kind="phone"
-              required
-            />
-          ) : null}
-          {method === "email" ? <Button text={"Get login link"} /> : null}
-          {method === "phone" ? (
-            <Button text={"Get one-time password"} />
-          ) : null}
-        </form>
+        <FormProvider {...methods}>
+          <form
+            onSubmit={methods.handleSubmit(onSubmit)}
+            className="mt-8 flex flex-col space-y-4"
+          >
+            {method === "email" ? (
+              <Input
+                name="email"
+                label="Email address"
+                type="email"
+                required="Email is required."
+              />
+            ) : null}
+            {method === "phone" ? (
+              <Input
+                name="phone"
+                label="Phone number"
+                type="text"
+                kind="phone"
+                required="Phone number is required."
+                pattern="^((01\d{1})|([2-9]\d{1,2}))-?\d{3,4}-?\d{4}$"
+              />
+            ) : null}
+            {method === "email" ? <Button text={"Get login link"} /> : null}
+            {method === "phone" ? (
+              <Button text={"Get one-time password"} />
+            ) : null}
+          </form>
+        </FormProvider>
 
         <div className="mt-8">
           <div className="relative">
