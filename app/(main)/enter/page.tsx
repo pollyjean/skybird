@@ -75,12 +75,14 @@ const Enter = () => {
                 type="text"
                 kind="phone"
                 required="Phone number is required."
-                pattern="^((01\d{1})|([2-9]\d{1,2}))-?\d{3,4}-?\d{4}$"
+                pattern="^((01\d{1})|([2-9]\d{1,2}))\d{3,4}\d{4}$"
               />
             ) : null}
-            {method === "email" ? <Button text={"Get login link"} /> : null}
+            {method === "email" ? (
+              <Button text={loading ? "Loading" : "Get login link"} />
+            ) : null}
             {method === "phone" ? (
-              <Button text={"Get one-time password"} />
+              <Button text={loading ? "Loading" : "Get one-time password"} />
             ) : null}
           </form>
         </FormProvider>

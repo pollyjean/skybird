@@ -66,7 +66,7 @@ export default function Input({
             pattern={pattern}
             {...register("phone", {
               pattern: {
-                value: /^((01\d{1})|([2-9]\d{1,2}))-?\d{3,4}-?\d{4}$/,
+                value: /^((01\d{1})|([2-9]\d{1,2}))\d{3,4}\d{4}$/,
                 message: "Enter phone number",
               },
               required: required,
