@@ -9,6 +9,10 @@ export interface EnterForms {
   phone?: string;
 }
 
+export interface TokenRegisterForm {
+  token?: string;
+}
+
 interface TwilioEnvProperties {
   sid: string;
   token: string;

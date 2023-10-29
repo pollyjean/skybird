@@ -16,9 +16,7 @@ export default function Input({
   label,
   type,
   kind = "text",
-  pattern,
   required,
-  placeholder,
 }: InputProps) {
   const { register } = useFormContext<EnterForms>();
   return (
@@ -63,7 +61,6 @@ export default function Input({
           <input
             id={name}
             type={type}
-            pattern={pattern}
             {...register("phone", {
               pattern: {
                 value: /^((01\d{1})|([2-9]\d{1,2}))\d{3,4}\d{4}$/,

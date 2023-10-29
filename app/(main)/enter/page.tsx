@@ -2,15 +2,23 @@
 
 import Button from "@/components/Button";
 import Input from "@/components/Input";
-import { EnterForms } from "@/libs/constants";
+import { EnterForms, TokenRegisterForm } from "@/libs/constants";
 import { cls } from "@/libs/client/utils";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import useMutation from "../../libs/client/useMutation";
 
+interface MutationResult {
+  ok: boolean;
+}
+
 const Enter = () => {
-  const [enter, { loading, data, error }] = useMutation("/api/users/enter");
+  const [enter, { loading, data, error }] =
+    useMutation<MutationResult>("/api/users/enter");
+  const [confirmToken, { loading: tokenLoading, data: tokenData }] =
+    useMutation<MutationResult>("/api/users/confirm");
   const methods = useForm<EnterForms>({ mode: "onChange" });
+  const tokenMethods = useForm<TokenRegisterForm>();
   const [method, setMethod] = useState<"email" | "phone">("email");
   const onEmailClick = () => {
     methods.reset();
@@ -23,6 +31,17 @@ const Enter = () => {
   const onSubmit = (forms: EnterForms) => {
     enter(forms);
   };
+  const onTokenSubmit = (form: TokenRegisterForm) => {
+    // confirmToken(form);
+    console.log(form);
+  };
+  useEffect(() => {
+    if (data?.ok) {
+      setTimeout(() => {
+        tokenMethods.setFocus("token");
+      }, 1000);
+    }
+  }, [data, tokenMethods]);
   console.log(loading, data, error);
   return (
     <div className="mt-16 px-4">
@@ -55,37 +74,57 @@ const Enter = () => {
             </button>
           </div>
         </div>
-        <FormProvider {...methods}>
+
+        {data?.ok ? (
           <form
-            onSubmit={methods.handleSubmit(onSubmit)}
+            onSubmit={tokenMethods.handleSubmit(onTokenSubmit)}
             className="mt-8 flex flex-col space-y-4"
           >
-            {method === "email" ? (
-              <Input
-                name="email"
-                label="Email address"
-                type="email"
-                required="Email is required."
+            <div className="flex rounded-md shadow-sm">
+              <input
+                id="token"
+                type="number"
+                {...tokenMethods.register("token", {
+                  required: "Type Token",
+                })}
+                className="w-full appearance-none rounded-md rounded-l-none border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-orange-500 focus:outline-none focus:ring-orange-500"
               />
-            ) : null}
-            {method === "phone" ? (
-              <Input
-                name="phone"
-                label="Phone number"
-                type="text"
-                kind="phone"
-                required="Phone number is required."
-                pattern="^((01\d{1})|([2-9]\d{1,2}))\d{3,4}\d{4}$"
-              />
-            ) : null}
-            {method === "email" ? (
-              <Button text={loading ? "Loading" : "Get login link"} />
-            ) : null}
-            {method === "phone" ? (
-              <Button text={loading ? "Loading" : "Get one-time password"} />
-            ) : null}
+            </div>
+            <Button text={loading ? "Loading" : "Confirm Token"} />
           </form>
-        </FormProvider>
+        ) : (
+          <FormProvider {...methods}>
+            <form
+              onSubmit={methods.handleSubmit(onSubmit)}
+              className="mt-8 flex flex-col space-y-4"
+            >
+              {method === "email" ? (
+                <Input
+                  name="email"
+                  label="Email address"
+                  type="email"
+                  required="Email is required."
+                />
+              ) : null}
+              {method === "phone" ? (
+                <Input
+                  name="phone"
+                  label="Phone number"
+                  type="text"
+                  kind="phone"
+                  required="Phone number is required."
+                  pattern="^((01\d{1})|([2-9]\d{1,2}))\d{3,4}\d{4}$"
+                />
+              ) : null}
+              {method === "email" ? (
+                <Button text={loading ? "Loading" : "Get login link"} />
+              ) : null}
+              {method === "phone" ? (
+                <Button text={loading ? "Loading" : "Get one-time password"} />
+              ) : null}
+            </form>
+          </FormProvider>
+        )}
 
         <div className="mt-8">
           <div className="relative">

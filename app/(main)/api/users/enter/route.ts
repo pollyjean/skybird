@@ -28,33 +28,37 @@ export async function POST(request: Request) {
       },
     },
   });
-  if (phone) {
-    const message = await twilioClient.messages.create({
-      messagingServiceSid: TWILIO_ENV.messagingSid,
-      to: TWILIO_ENV.phone,
-      body: `Your Login token is ${payload}`,
-    });
-    console.log(message);
-  }
-  if (email) {
-    const mailOptions = {
-      from: process.env.MAIL_ID,
-      to: process.env.MAIL_ID,
-      subject: "Authentication Email",
-      text: `Authentication Code: ${payload}`,
-    };
-    const result = smtpTransporter.sendMail(mailOptions, (error, response) => {
-      if (error) {
-        console.log(error);
-        return null;
-      } else {
-        console.log(response);
-        return null;
-      }
-    });
-    smtpTransporter.close();
-    console.log(result);
-  }
+
+  // // phone 인증
+  // if (phone) {
+  //   const message = await twilioClient.messages.create({
+  //     messagingServiceSid: TWILIO_ENV.messagingSid,
+  //     to: TWILIO_ENV.phone,
+  //     body: `Your Login token is ${payload}`,
+  //   });
+  //   console.log(message);
+  // }
+
+  // // email 인증
+  // if (email) {
+  //   const mailOptions = {
+  //     from: process.env.MAIL_ID,
+  //     to: process.env.MAIL_ID,
+  //     subject: "Authentication Email",
+  //     text: `Authentication Code: ${payload}`,
+  //   };
+  //   const result = smtpTransporter.sendMail(mailOptions, (error, response) => {
+  //     if (error) {
+  //       console.log(error);
+  //       return null;
+  //     } else {
+  //       console.log(response);
+  //       return null;
+  //     }
+  //   });
+  //   smtpTransporter.close();
+  //   console.log(result);
+  // }
 
   return new Response(JSON.stringify({ ok: true }), { status: 200 });
 }
