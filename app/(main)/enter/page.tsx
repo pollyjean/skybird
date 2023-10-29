@@ -32,8 +32,8 @@ const Enter = () => {
     enter(forms);
   };
   const onTokenSubmit = (form: TokenRegisterForm) => {
-    // confirmToken(form);
-    console.log(form);
+    if (tokenLoading) return;
+    confirmToken(form);
   };
   useEffect(() => {
     if (data?.ok) {
@@ -43,6 +43,7 @@ const Enter = () => {
     }
   }, [data, tokenMethods]);
   console.log(loading, data, error);
+  console.log(tokenLoading, tokenData);
   return (
     <div className="mt-16 px-4">
       <h3 className="text-center text-3xl font-bold">Enter to Carrot</h3>
@@ -86,6 +87,8 @@ const Enter = () => {
                 type="number"
                 {...tokenMethods.register("token", {
                   required: "Type Token",
+                  minLength: 6,
+                  maxLength: 6,
                 })}
                 className="w-full appearance-none rounded-md rounded-l-none border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-orange-500 focus:outline-none focus:ring-orange-500"
               />
