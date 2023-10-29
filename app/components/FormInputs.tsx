@@ -1,4 +1,4 @@
-import { FormValues } from "@/libs/client/constants";
+import { FormValues } from "@/libs/constants";
 import { useFormContext } from "react-hook-form";
 
 function FormInputs() {

@@ -1,7 +1,7 @@
 "use client";
 
 import FormInputs from "@/components/FormInputs";
-import { FormValues } from "@/libs/client/constants";
+import { FormValues } from "@/libs/constants";
 import { useState } from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 

@@ -1,5 +1,6 @@
-import { TWILIO_ENV } from "@/libs/client/constants";
+import { TWILIO_ENV } from "@/libs/constants";
 import client from "@/libs/server/client";
+import smtpTransporter from "@/libs/server/email";
 import twilio from "twilio";
 
 const twilioClient = twilio(TWILIO_ENV.sid, TWILIO_ENV.token);
@@ -34,6 +35,25 @@ export async function POST(request: Request) {
       body: `Your Login token is ${payload}`,
     });
     console.log(message);
+  }
+  if (email) {
+    const mailOptions = {
+      from: process.env.MAIL_ID,
+      to: process.env.MAIL_ID,
+      subject: "Authentication Email",
+      text: `Authentication Code: ${payload}`,
+    };
+    const result = smtpTransporter.sendMail(mailOptions, (error, response) => {
+      if (error) {
+        console.log(error);
+        return null;
+      } else {
+        console.log(response);
+        return null;
+      }
+    });
+    smtpTransporter.close();
+    console.log(result);
   }
 
   return new Response(JSON.stringify({ ok: true }), { status: 200 });

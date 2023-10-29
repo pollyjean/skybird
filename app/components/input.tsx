@@ -1,4 +1,4 @@
-import { EnterForms } from "@/libs/client/constants";
+import { EnterForms } from "@/libs/constants";
 import { useFormContext } from "react-hook-form";
 
 interface InputProps {
