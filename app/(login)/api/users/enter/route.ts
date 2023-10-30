@@ -1,18 +1,18 @@
-import { TWILIO_ENV } from "@/libs/constants";
+// import { TWILIO_ENV } from "@/libs/constants";
+// import smtpTransporter from "@/libs/server/email";
 import client from "@/libs/server/client";
-import smtpTransporter from "@/libs/server/email";
 import twilio from "twilio";
 
-const twilioClient = twilio(TWILIO_ENV.sid, TWILIO_ENV.token);
+// const twilioClient = twilio(TWILIO_ENV.sid, TWILIO_ENV.token);
 
 export async function POST(request: Request) {
   const { phone, email } = await request.json();
   const user = phone ? { phone } : email ? { email } : null;
   if (!user) {
-    return new Response(JSON.stringify({ ok: false }), { status: 400 });
+    return new Response(JSON.stringify({ ok: false }), { status: 401 });
   }
   const payload = Math.floor(100000 + Math.random() * 900000) + "";
-  const token = await client.token.create({
+  await client.token.create({
     data: {
       payload,
       user: {

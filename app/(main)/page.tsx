@@ -1,8 +1,10 @@
 import FloatingButton from "@/components/FloatingButton";
 import Item from "@/components/Item";
 import Layout from "@/components/Layout";
+import sessionState from "@/libs/server/sessionState";
+import useSession from "@/libs/server/sessionState";
 
-export default function Home() {
+export default async function Home() {
   return (
     <main>
       <Layout title="홈" hasTabBar>

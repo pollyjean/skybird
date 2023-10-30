@@ -3,10 +3,11 @@
 import Button from "@/components/Button";
 import Input from "@/components/Input";
 import { EnterForms, TokenRegisterForm } from "@/libs/constants";
-import { cls } from "@/libs/client/utils";
+import { cls } from "@/libs/utils";
 import { useEffect, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
-import useMutation from "../../libs/client/useMutation";
+import useMutation from "@/libs/client/useMutation";
+import { redirect } from "next/navigation";
 
 interface MutationResult {
   ok: boolean;
@@ -41,9 +42,10 @@ const Enter = () => {
         tokenMethods.setFocus("token");
       }, 1000);
     }
-  }, [data, tokenMethods]);
-  console.log(loading, data, error);
-  console.log(tokenLoading, tokenData);
+    if (tokenData?.ok) {
+      redirect("/");
+    }
+  }, [data, tokenData?.ok, tokenMethods]);
   return (
     <div className="mt-16 px-4">
       <h3 className="text-center text-3xl font-bold">Enter to Carrot</h3>

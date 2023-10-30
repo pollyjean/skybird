@@ -26,3 +26,13 @@ export const TWILIO_ENV: TwilioEnvProperties = {
   messagingSid: process.env.TWILIO_MESSAGING_SID || "",
   phone: process.env.PHONE_NUMBER || "",
 };
+
+export interface SessionPayload {
+  id: string;
+  name: string;
+  phone?: string;
+  email?: string;
+  avatar?: string;
+  createdAt: string;
+  updatedAt: string;
+}
