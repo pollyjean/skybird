@@ -13,12 +13,8 @@ export const metadata: Metadata = {
 
 export default async function RootLayout({
   children,
-  login,
-  logout,
 }: {
   children: React.ReactNode;
-  login: React.ReactNode;
-  logout: React.ReactNode;
 }) {
   const session = await sessionState();
   if (!session) {
@@ -28,7 +24,6 @@ export default async function RootLayout({
     <html lang="en">
       <body className={`${inter.className} + ${"mx-auto w-full max-w-xl"}`}>
         {children}
-        {session ? login : logout}
       </body>
     </html>
   );

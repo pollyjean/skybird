@@ -14,53 +14,54 @@ datasource db {
 
 model User {
   id        Int      @id @default(autoincrement())
-  name      String
-  phone     String?  @unique
-  email     String?  @unique
+  username  String?
+  email     String   @unique
+  password  String?
   avatar    String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  tokens    Token[]
+  likes     Like[]
+  tweets    Tweet[]
+  replies   Reply[]
 }
 
-model Token {
+model Tweet {
   id        Int      @id @default(autoincrement())
-  payload   String   @unique
+  text      String
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId    Int      @unique
+  author    User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  authorId  Int
+  likes     Like[]
+  reply     Reply[]
+
+  @@index([authorId])
 }
 
-// model User {
-//   id Int @id @default(autoincrement())
-//   username String?
-//   email String @unique
-//   password String?
-//   createdAt DateTime @default(now())
-//   likes Like[]
-//   tweets Tweet[]
-// }
+model Reply {
+  id            Int      @id @default(autoincrement())
+  text          String
+  createdAt     DateTime @default(now())
+  author        User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  authorId      Int
+  tweet         Tweet    @relation(fields: [tweetId], references: [id])
+  tweetId       Int
+  parentReply   Reply?   @relation("ParentReply", fields: [parentReplyId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  parentReplyId Int?
+  childReplies  Reply[]  @relation("ParentReply")
 
-// model Tweet {
-//   id Int @id @default(autoincrement())
-//   text String
-//   createdAt DateTime @default(now())
-//   author User @relation(fields: [authorId], references: [id])
-//   authorId Int
-//   likes Like[]
+  @@index([authorId])
+  @@index([tweetId])
+  @@index([parentReplyId])
+}
 
-//   @@index([authorId])
-// }
+model Like {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    Int
+  tweet     Tweet    @relation(fields: [tweetId], references: [id], onDelete: Cascade)
+  tweetId   Int
 
-// model Like {
-//   id Int @id @default(autoincrement())
-//   createdAt DateTime @default(now())
-//   user User @relation(fields: [userId], references: [id])
-//   userId Int
-//   tweet Tweet @relation(fields: [tweetId], references: [id])
-//   tweetId Int
-
-//   @@index([tweetId])
-//   @@index([userId])
-// }
+  @@index([tweetId])
+  @@index([userId])
+}
