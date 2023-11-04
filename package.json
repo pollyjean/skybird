@@ -3,12 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint",
-    "db": "pscale connect skybird-mart",
-    "dba": "yarn prisma studio"
+    "dev": "yarn next dev",
+    "build": "yarn next build",
+    "start": "yarn next start",
+    "lint": "yarn next lint",
+    "db-connect": "pscale connect skybird-mart",
+    "db-update": "yarn prisma db push",
+    "db-monitor": "yarn prisma studio"
   },
   "dependencies": {
     "@prisma/client": "^5.5.2",
