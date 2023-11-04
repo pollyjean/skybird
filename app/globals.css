@@ -3,20 +3,13 @@
 @tailwind utilities;
 
 :root {
-  --text-color: 0, 0, 0;
-  --background-color: 255, 255, 255;
+  --black-rgb: 16, 15, 15;
+  --paper-rgb: 255, 252, 240;
 }
 
-/* @media (prefers-color-scheme: dark) {
-  :root {
-    --text-color: 255, 255, 255;
-    --background-color: 0, 0, 0;
-  }
-} */
-
 body {
-  color: rgb(var(--foreground-rgb));
-  background: rgb(var(--background-start-rgb));
+  color: rgb(var(--paper-rgb));
+  background: rgb(var(-black-rgb));
 }
 
 input::-webkit-outer-spin-button,
