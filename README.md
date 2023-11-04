@@ -1,15 +1,17 @@
-# Skybird Mart
+# Skybird
 
-## 목적
+## Goals
 
-Next.js 백엔드 해보자
+Next.js Full Stack App
 
-## 사용기술
+## Libraries
 
 - TypeScript
 - tailwindCSS
+- react-hook-form
+- SWR
 
-## 하고 있는 것
+## Doing
 
 - tailwind prettier 로 클래스 순서 맞추기
 - page router 코드를 app router 코드로 변경하기
