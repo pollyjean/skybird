@@ -14,8 +14,14 @@ export const sessionOptions: IronSessionOptions = {
 
 declare module "iron-session" {
   interface IronSessionData {
-    cookieVariable?: string;
+    user: SessionValues;
   }
+}
+
+interface SessionValues {
+  id: number;
+  email: string;
+  username?: string;
 }
 
 const getSession = async (req: Request, res: Response) => {

@@ -1,7 +1,9 @@
 import bcrypt from "bcrypt";
 import client from "@/libs/server/client";
+import { getServerActionSession } from "@/libs/server/session";
 
 export async function POST(request: Request) {
+  const session = await getServerActionSession();
   const { email, username, password } = await request.json();
 
   let user = await client.user.findUnique({ where: { email } });
@@ -20,6 +22,12 @@ export async function POST(request: Request) {
         password: protectedPassword,
       },
     });
+    session.user = {
+      id: user.id,
+      username: user.username || "anonymous",
+      email: user.email,
+    };
+    await session.save();
   } catch (error) {
     console.error(error);
     return new Response("", { status: 503 });

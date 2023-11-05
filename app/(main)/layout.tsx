@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "@/libs/styles/globals.css";
-import sessionState from "@/libs/server/sessionState";
+import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -16,9 +16,10 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const session = await sessionState();
+  const cookieStore = cookies();
+  const session = cookieStore.get(process.env.SESSION_NAME || "");
   if (!session) {
-    redirect("/create-account");
+    redirect("/login");
   }
   return (
     <html lang="en">
