@@ -7,9 +7,9 @@
     "build": "npx next build",
     "start": "npx next start",
     "lint": "npx next lint",
-    "db-connect": "pscale connect skybird-mart",
-    "db-update": "npx prisma db push",
-    "db-monitor": "npx prisma studio",
+    "db@connect": "pscale connect skybird-mart",
+    "db@update": "npx prisma db push",
+    "db@monitor": "npx prisma studio",
     "preinstall": "npx only-allow pnpm"
   },
   "dependencies": {

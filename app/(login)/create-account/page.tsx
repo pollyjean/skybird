@@ -1,4 +1,4 @@
-import AccountForm from "./AccountForm";
+import AccountForm from "@/(login)/create-account/AccountForm";
 
 const Page = () => {
   return (
