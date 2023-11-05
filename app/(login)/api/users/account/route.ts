@@ -10,17 +10,19 @@ export async function POST(request: Request) {
     return new Response(JSON.stringify({ ok: false }), { status: 409 });
   }
   const textPassword = password;
-  const protectedPassword = await bcrypt.hash(
-    textPassword,
-    process.env.SALT_ROUND || 3,
-  );
+  const protectedPassword = await bcrypt.hash(textPassword, 8);
 
-  user = await client.user.create({
-    data: {
-      email,
-      username,
-      password: protectedPassword,
-    },
-  });
+  try {
+    user = await client.user.create({
+      data: {
+        email,
+        username,
+        password: protectedPassword,
+      },
+    });
+  } catch (error) {
+    console.error(error);
+    return new Response("", { status: 503 });
+  }
   return new Response(JSON.stringify({ ok: true }), { status: 200 });
 }

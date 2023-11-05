@@ -28,14 +28,14 @@ const AccountForm = () => {
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
       <div className="relative flex flex-col gap-1">
-        <label htmlFor="email" className="text-base-200 text-sm font-medium">
+        <label htmlFor="email" className="text-sm font-medium text-base-200">
           Email
         </label>
         <input
           type="email"
           id="email"
           placeholder="ex) youremail@domain.com"
-          className="border-base-200 bg-base-950 rounded-md border p-3 text-sm placeholder:opacity-40"
+          className="rounded-md border border-base-200 bg-base-950 p-3 text-sm placeholder:opacity-40"
           {...register("email", {
             pattern: {
               value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
@@ -43,20 +43,20 @@ const AccountForm = () => {
             },
           })}
         />
-        <p className="text-red absolute right-0 top-0 h-5 text-xs">
+        <p className="absolute right-0 top-0 h-5 text-xs text-red">
           {errors.email?.message && errors.email.message}
         </p>
       </div>
 
       <div className="relative flex flex-col gap-1">
-        <label htmlFor="username" className="text-base-200 text-sm font-medium">
+        <label htmlFor="username" className="text-sm font-medium text-base-200">
           Name
         </label>
         <input
           type="text"
           id="username"
           placeholder="At least 3 characters"
-          className="border-base-200 bg-base-950 rounded-md border p-3 text-sm placeholder:opacity-40"
+          className="rounded-md border border-base-200 bg-base-950 p-3 text-sm placeholder:opacity-40"
           {...register("username", {
             minLength: {
               value: 3,
@@ -64,20 +64,20 @@ const AccountForm = () => {
             },
           })}
         />
-        <p className="text-red absolute right-0 top-0 h-5 text-xs">
+        <p className="absolute right-0 top-0 h-5 text-xs text-red">
           {errors.username?.message && errors.username.message}
         </p>
       </div>
 
       <div className="relative flex flex-col gap-1">
-        <label htmlFor="password" className="text-base-200 text-sm font-medium">
+        <label htmlFor="password" className="text-sm font-medium text-base-200">
           Password
         </label>
         <input
           type="password"
           id="password"
           placeholder="At least 3 characters"
-          className="border-base-200 bg-base-950 rounded-md border p-3 text-sm placeholder:opacity-40"
+          className="rounded-md border border-base-200 bg-base-950 p-3 text-sm placeholder:opacity-40"
           {...register("password", {
             required: "Password is required",
             minLength: {
@@ -86,7 +86,7 @@ const AccountForm = () => {
             },
           })}
         />
-        <p className="text-red absolute right-0 top-0 h-5 text-xs">
+        <p className="absolute right-0 top-0 h-5 text-xs text-red">
           {errors.password?.message && errors.password.message}
         </p>
       </div>
@@ -94,7 +94,7 @@ const AccountForm = () => {
       <div className="relative flex flex-col gap-1">
         <label
           htmlFor="passwordConfirm"
-          className="text-base-200 text-sm font-medium"
+          className="text-sm font-medium text-base-200"
         >
           Password Confirm
         </label>
@@ -102,10 +102,10 @@ const AccountForm = () => {
           type="password"
           id="passwordConfirm"
           placeholder="Enter your password again"
-          className="border-base-200 bg-base-950 rounded-md border p-3 text-sm placeholder:opacity-40"
+          className="rounded-md border border-base-200 bg-base-950 p-3 text-sm placeholder:opacity-40"
           {...register("passwordConfirm", { required: "Enter Password Again" })}
         />
-        <p className="text-red absolute right-0 top-0 h-5 text-xs">
+        <p className="absolute right-0 top-0 h-5 text-xs text-red">
           {errors.passwordConfirm?.message && errors.passwordConfirm.message}
         </p>
       </div>

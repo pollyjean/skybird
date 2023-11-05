@@ -1,24 +1,34 @@
-import { unsealData } from "iron-session/edge";
+import {
+  IronSessionOptions,
+  getIronSession,
+  IronSessionData,
+  getServerActionIronSession,
+} from "iron-session";
+
 import { cookies } from "next/headers";
-import { SessionPayload } from "../constants";
 
-type sessionResults = () => Promise<SessionPayload | null>;
-
-const sessionState: sessionResults = async () => {
-  const cookieStore = cookies();
-
-  const encryptedSession = cookieStore.get(process.env.COOKIE_NAME || "")
-    ?.value;
-
-  const sessionState: SessionPayload | null = encryptedSession
-    ? await JSON.parse(
-        await unsealData(encryptedSession, {
-          password: process.env.COOKIE_PW || "",
-        }),
-      )
-    : null;
-
-  return sessionState;
+export const sessionOptions: IronSessionOptions = {
+  password: process.env.SESSION_SECRET || "",
+  cookieName: process.env.SESSION_NAME || "",
 };
 
-export default sessionState;
+declare module "iron-session" {
+  interface IronSessionData {
+    cookieVariable?: string;
+  }
+}
+
+const getSession = async (req: Request, res: Response) => {
+  const session = getIronSession<IronSessionData>(req, res, sessionOptions);
+  return session;
+};
+
+const getServerActionSession = async () => {
+  const session = getServerActionIronSession<IronSessionData>(
+    sessionOptions,
+    cookies(),
+  );
+  return session;
+};
+
+export { getSession, getServerActionSession };
