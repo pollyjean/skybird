@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import "@/globals.css";
+import "@/libs/styles/globals.css";
 import sessionState from "@/libs/server/sessionState";
 import { redirect } from "next/navigation";
 
@@ -18,7 +18,7 @@ export default async function RootLayout({
 }) {
   const session = await sessionState();
   if (!session) {
-    redirect("/enter");
+    redirect("/create-account");
   }
   return (
     <html lang="en">

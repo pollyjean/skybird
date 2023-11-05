@@ -2,16 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --black-rgb: 16, 15, 15;
-  --paper-rgb: 255, 252, 240;
-}
-
-body {
-  color: rgb(var(--paper-rgb));
-  background: rgb(var(-black-rgb));
-}
-
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
@@ -21,4 +11,9 @@ input::-webkit-inner-spin-button {
 /* Firefox */
 input[type="number"] {
   -moz-appearance: textfield;
+}
+
+body {
+  color: #fffcf0;
+  background: #100f0f;
 }

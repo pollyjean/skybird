@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import "@/globals.css";
+import "@/libs/styles/globals.css";
 import { redirect } from "next/navigation";
 import sessionState from "@/libs/server/sessionState";
 
