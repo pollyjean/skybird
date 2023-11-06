@@ -6,7 +6,7 @@ Next.js Full Stack Mini Twitter Like Mobile Web App
 
 ## Libraries
 
-- NextJS (App router), Prisma, Tailwind, ~~API~~Handle Routes, SWR
+- NextJS (App router), Prisma, Tailwind, ~~API~~Handle Routes, SWR, cloudflare
 
 ## TO-DO
 
@@ -16,18 +16,19 @@ Next.js Full Stack Mini Twitter Like Mobile Web App
 [x] Custom User React Hook
 [ ] iron-session state 처리 (User, Other, Logout)
 [ ] useSWR 로 상태 변경 Optimistic UI Update
+[ ] cloudflare connect
 [ ] View Count, Like Count, Reply Count
 [ ] Search Tweet
 [ ] SVG Icons
 [ ] Tailwind Group
+[ ] Pagination (prisma `skip`/`take`)
+[ ] geoLocation (custom hook)
 [ ] image alt
-[ ] Pagination
 [ ] Alert Component
 [ ] Infinite Scroll
 [ ] Reply to Reply
 [ ] Oauth
 [ ] Video, Link
-[ ] geoLocation
 
 ## Structure
 
@@ -72,16 +73,17 @@ Next.js Full Stack Mini Twitter Like Mobile Web App
 
 (handler)
 
+- `/list?page=1` list = page query (GET)
+- `/list/search?page=1&keyword=` search query (GET)
+- `/list/[userId]/tweet` list = page query (GET)
+- `/list/[userId]/like` list = page query (GET)
+
 - `/tweet/new`
-- `/tweet/list`
-- `/tweet/list/search` + query (GET)
-- `/tweet/list/[userId]/tweet`
-- `/tweet/list/[userId]/like`
 - `/tweet/[tweetId]/view`
 - `/tweet/[tweetId]/delete`
 - `/tweet/[tweetId]/like`
 - `/tweet/[tweetId]/reply`
-- (Todo) `/tweet/[tweetId]/reply/[replyId]/delete`
+- `/tweet/[tweetId]/reply/[replyId]/delete`
 - (Todo) `/tweet/[tweetId]/reply/[replyId]/reply`
 
 - `/user/new`
