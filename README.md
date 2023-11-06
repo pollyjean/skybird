@@ -2,14 +2,20 @@
 
 ## Goals
 
-Next.js Full Stack App
+Next.js Full Stack Mini Twitter App
 
 ## Libraries
 
-- TypeScript
-- tailwindCSS
-- react-hook-form
-- SWR
+- NextJS, Prisma, Tailwind, API Routes, SWR
+
+## Structure
+
+- /
+  - See All Tweets, Log-in State
+- /tweet/[id]
+  - Like Button
+- /create-account
+- /log-in
 
 ## Doing
 
