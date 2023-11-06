@@ -13,19 +13,21 @@ Next.js Full Stack Mini Twitter Like Mobile Web App
 [x] tailwind prettier 로 클래스 순서 맞추기
 [x] page router 코드를 app router 코드로 변경하기
 [x] Prisma와 PlanetScale 설치, 설정
-[ ] Custom User React Hook
+[x] Custom User React Hook
 [ ] iron-session state 처리 (User, Other, Logout)
 [ ] useSWR 로 상태 변경 Optimistic UI Update
 [ ] View Count, Like Count, Reply Count
 [ ] Search Tweet
 [ ] SVG Icons
 [ ] Tailwind Group
+[ ] image alt
 [ ] Pagination
 [ ] Alert Component
 [ ] Infinite Scroll
 [ ] Reply to Reply
 [ ] Oauth
 [ ] Video, Link
+[ ] geoLocation
 
 ## Structure
 
