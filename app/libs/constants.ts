@@ -3,4 +3,5 @@ export interface AccountFormValues {
   username?: string;
   password: string;
   passwordConfirm?: string;
+  avatar?: FileList;
 }

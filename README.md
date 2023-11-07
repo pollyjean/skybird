@@ -44,7 +44,7 @@ Next.js Full Stack Mini Twitter Like Mobile Web App
   - Create-Account
   - (todo) OAuth
 
-(profile)
+(user)
 
 - Profile `/profile/[userId]`
   - Edit Profile `/profile/edit` (C)
