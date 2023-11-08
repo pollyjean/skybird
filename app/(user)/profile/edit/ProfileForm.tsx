@@ -15,13 +15,26 @@ const ProfileForm = () => {
   } = useForm<AccountFormValues>({ mode: "onChange" });
   const onSubmit: SubmitHandler<AccountFormValues> = async (formData) => {
     if (formData.avatar && formData.avatar.length > 0) {
-      const cloudflareUrl = await (
+      const { uploadURL } = await (
         await fetch(`/api/files`, { method: "POST" })
       ).json();
-      console.log(cloudflareUrl);
+      const form = new FormData();
+      form.append("file", formData.avatar[0], `avatar-${Date.now()}`);
+      const { result: id } = await (
+        await fetch(uploadURL, { method: "POST", body: form })
+      ).json();
+      console.log(id);
       return;
     }
   };
+
+  const avatar = watch("avatar");
+  useEffect(() => {
+    if (avatar && avatar.length > 0) {
+      const file = avatar[0];
+      setPreview(URL.createObjectURL(file));
+    }
+  }, [avatar]);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
