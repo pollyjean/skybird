@@ -1,6 +1,6 @@
 "use client";
 
-import { AccountFormValues } from "@/libs/constants";
+import { AccountFormValues } from "@/constants";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";

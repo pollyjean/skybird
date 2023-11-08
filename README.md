@@ -59,7 +59,7 @@ Next.js Full Stack Mini Twitter Like Mobile Web App
 - New Tweet `/new` Form : Text, Photo (C)
   - (todo) Video, Link, embed
 - List : `/` User/Photo/Text/Timestamp/Likes&Reply Counts
-  - Detail : `/tweet/[tweetId]` User/Photo/Text/Timestamp/Views
+  - Detail : `/post/[tweetId]` User/Photo/Text/Timestamp/Views
     - Reply (Form) : User/Text/Timestamp (C)
       - Enter to form reset
       - Reply Delete
@@ -74,9 +74,9 @@ Next.js Full Stack Mini Twitter Like Mobile Web App
 (handler)
 
 - `/list?page=1` list = page query (GET)
-- `/list/search?page=1&keyword=` search query (GET)
-- `/list/[userId]/tweet` list = page query (GET)
-- `/list/[userId]/like` list = page query (GET)
+- `/list/search?keyword=` search query (GET)
+- `/list/[userId]/tweets` list = page query (GET)
+- `/list/[userId]/likes` list = page query (GET)
 
 - `/tweet/new`
 - `/tweet/[tweetId]/view`
@@ -88,9 +88,12 @@ Next.js Full Stack Mini Twitter Like Mobile Web App
 
 - `/user/new`
 - `/user/login`
+- `/user/logout`
 - `/user/[userId]/view`
 - `/user/[userId]/edit`
 - `/user/[userId]/delete`
+
+- `/utils/files`
 
 ## Database Flow
 

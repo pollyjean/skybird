@@ -1,7 +1,7 @@
 "use client";
 
 import useMutation from "@/libs/client/useMutation";
-import { AccountFormValues } from "@/libs/constants";
+import { AccountFormValues } from "@/constants";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 const AccountForm = () => {
