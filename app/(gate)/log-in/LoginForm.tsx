@@ -18,12 +18,11 @@ const LoginForm = () => {
     formState: { errors },
   } = useForm<AccountFormValues>({ mode: "onChange" });
   const [mutate, { loading, data, error }] =
-    useMutation<MutationResult>("/api/users/enter");
+    useMutation<MutationResult>("/api/user/login");
   const onSubmit: SubmitHandler<AccountFormValues> = (formData) => {
     mutate(formData);
   };
   useEffect(() => {
-    console.log(data);
     if (!loading && data?.ok === true) {
       redirect("/");
     } else if (!loading && data?.ok === false) {
@@ -33,7 +32,10 @@ const LoginForm = () => {
   }, [loading, data]);
   if (error) console.error(error);
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="flex flex-col gap-4 rounded-md border border-base-900 p-4"
+    >
       <div className="relative flex flex-col gap-1">
         <label htmlFor="email" className="text-sm font-medium text-base-200">
           Email
@@ -77,7 +79,9 @@ const LoginForm = () => {
         </p>
       </div>
 
-      <button type="submit">{loading ? "Loading..." : "Login"}</button>
+      <button type="submit" className="mt-2 rounded-md bg-blue p-2 font-medium">
+        {loading ? "Loading..." : "Login"}
+      </button>
     </form>
   );
 };

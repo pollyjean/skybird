@@ -1,11 +1,12 @@
 "use client";
 
 import { AccountFormValues } from "@/constants";
+import useMutation from "@/libs/client/useMutation";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 
-const ProfileForm = () => {
+const ProfileForm = ({ sessionId }: { sessionId: number }) => {
   const [preview, setPreview] = useState("");
   const {
     register,
@@ -13,17 +14,18 @@ const ProfileForm = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<AccountFormValues>({ mode: "onChange" });
+  const [editProfile, { data }] = useMutation(`/user/${sessionId}/edit`);
   const onSubmit: SubmitHandler<AccountFormValues> = async (formData) => {
     if (formData.avatar && formData.avatar.length > 0) {
       const { uploadURL } = await (
-        await fetch(`/api/files`, { method: "POST" })
+        await fetch("/cloudflare", { method: "POST" })
       ).json();
       const form = new FormData();
       form.append("file", formData.avatar[0], `avatar-${Date.now()}`);
-      const { result: id } = await (
+      const { result: data } = await (
         await fetch(uploadURL, { method: "POST", body: form })
       ).json();
-      console.log(id);
+      editProfile({ avatar: data.id });
       return;
     }
   };

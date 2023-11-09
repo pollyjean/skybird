@@ -1,16 +1,18 @@
-import { redirect } from "next/navigation";
-import client from "@/libs/server/client";
+import Link from "next/link";
 import LoginForm from "./LoginForm";
 
 const Page = async () => {
-  const exist = await client.user.findMany();
-  if (exist.length === 0) {
-    redirect("/create-account");
-  }
   return (
-    <main>
+    <>
+      <h1 className="text-2xl font-bold">Login</h1>
       <LoginForm />
-    </main>
+      <Link
+        href="/create-account"
+        className="hover:underline hover:underline-offset-2"
+      >
+        Have no account? create account &rarr;
+      </Link>
+    </>
   );
 };
 

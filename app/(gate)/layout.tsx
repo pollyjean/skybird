@@ -1,12 +1,14 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import "@/libs/styles/globals.css";
+import "@/globals.css";
+import { redirect } from "next/navigation";
+import { getServerActionSession } from "@/libs/server/session";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Skybird Mart",
-  description: "Skybird Mart App",
+  title: "Skybird",
+  description: "Skybird Social App",
 };
 
 export default async function RootLayout({
@@ -14,10 +16,18 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const session = await getServerActionSession();
+  if (session.user) {
+    redirect("/");
+  }
   return (
     <html lang="en">
       <body className={`${inter.className} + ${"mx-auto w-full max-w-xl"}`}>
-        {children}
+        <main className="mt-20 flex flex-col items-stretch justify-center">
+          <section className="m-auto flex w-80 flex-col gap-5">
+            {children}
+          </section>
+        </main>
       </body>
     </html>
   );

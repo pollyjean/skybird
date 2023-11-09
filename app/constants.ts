@@ -5,3 +5,7 @@ export interface AccountFormValues {
   passwordConfirm?: string;
   avatar?: FileList;
 }
+
+export interface StatusReturns {
+  ok: boolean;
+}

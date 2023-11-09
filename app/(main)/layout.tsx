@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import "@/libs/styles/globals.css";
+import "@/globals.css";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import { getServerActionSession } from "@/libs/server/session";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,10 +17,9 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const cookieStore = cookies();
-  const session = cookieStore.get(process.env.SESSION_NAME || "");
-  if (!session) {
-    redirect("/login");
+  const session = await getServerActionSession();
+  if (!session.user) {
+    redirect("/log-in");
   }
   return (
     <html lang="en">

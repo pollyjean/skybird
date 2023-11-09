@@ -1,8 +1,10 @@
 "use client";
 
 import useMutation from "@/libs/client/useMutation";
-import { AccountFormValues } from "@/constants";
+import { AccountFormValues, StatusReturns } from "@/constants";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { useEffect } from "react";
+import { redirect } from "next/navigation";
 
 const AccountForm = () => {
   const {
@@ -12,7 +14,7 @@ const AccountForm = () => {
     formState: { errors },
   } = useForm<AccountFormValues>({ mode: "onChange" });
   const [mutate, { loading, data, error }] =
-    useMutation<AccountFormValues>("/api/users/account");
+    useMutation<StatusReturns>("/api/user/new");
   const onSubmit: SubmitHandler<AccountFormValues> = (formData) => {
     if (formData && formData.password !== formData.passwordConfirm) {
       setError(
@@ -24,9 +26,17 @@ const AccountForm = () => {
       mutate(formData);
     }
   };
+  useEffect(() => {
+    if (!loading && data?.ok) {
+      redirect("/");
+    }
+  }, [loading, data]);
   if (error) console.error(error);
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="flex flex-col gap-4 rounded-md border border-base-900 p-4"
+    >
       <div className="relative flex flex-col gap-1">
         <label htmlFor="email" className="text-sm font-medium text-base-200">
           Email
@@ -109,7 +119,9 @@ const AccountForm = () => {
           {errors.passwordConfirm?.message && errors.passwordConfirm.message}
         </p>
       </div>
-      <button type="submit">{loading ? "Loading..." : "Create Account"}</button>
+      <button type="submit" className="mt-2 rounded-md bg-blue p-2 font-medium">
+        {loading ? "Loading..." : "Create Account"}
+      </button>
     </form>
   );
 };

@@ -17,11 +17,10 @@ declare module "iron-session" {
     user: SessionValues;
   }
 }
-
 interface SessionValues {
   id: number;
   email: string;
-  username?: string;
+  username: string;
 }
 
 const getSession = async (req: Request, res: Response) => {
@@ -37,4 +36,15 @@ const getServerActionSession = async () => {
   return session;
 };
 
-export { getSession, getServerActionSession };
+const checkSessionUserId = async (userId: string) => {
+  const {
+    user: { id },
+  } = await getServerActionSession();
+  if (+userId === id) {
+    return id;
+  } else {
+    return null;
+  }
+};
+
+export { getSession, getServerActionSession, checkSessionUserId };

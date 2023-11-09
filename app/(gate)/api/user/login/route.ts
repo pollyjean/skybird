@@ -28,7 +28,7 @@ export async function POST(request: Request) {
       await session.save();
     }
   });
-  if (session.user.id) {
+  if (session?.user?.id) {
     return new Response(JSON.stringify({ ok: true }), { status: 200 });
   } else {
     return new Response(JSON.stringify({ ok: false }), { status: 400 });

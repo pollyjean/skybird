@@ -10,25 +10,25 @@ Next.js Full Stack Mini Twitter Like Mobile Web App
 
 ## TO-DO
 
-[x] tailwind prettier 로 클래스 순서 맞추기
-[x] page router 코드를 app router 코드로 변경하기
-[x] Prisma와 PlanetScale 설치, 설정
-[x] Custom User React Hook
-[ ] iron-session state 처리 (User, Other, Logout)
-[ ] useSWR 로 상태 변경 Optimistic UI Update
-[ ] cloudflare connect
-[ ] View Count, Like Count, Reply Count
-[ ] Search Tweet
-[ ] SVG Icons
-[ ] Tailwind Group
-[ ] Pagination (prisma `skip`/`take`)
-[ ] geoLocation (custom hook)
-[ ] image alt
-[ ] Alert Component
-[ ] Infinite Scroll
-[ ] Reply to Reply
-[ ] Oauth
-[ ] Video, Link
+- [x] tailwind prettier 로 클래스 순서 맞추기
+- [x] page router 코드를 app router 코드로 변경하기
+- [x] Prisma와 PlanetScale 설치, 설정
+- [x] Custom User React Hook
+- [ ] iron-session state 처리 (User, Other, Logout)
+- [ ] useSWR 로 상태 변경 Optimistic UI Update
+- [ ] cloudflare connect
+- [ ] View Count, Like Count, Reply Count
+- [ ] Search Tweet
+- [ ] SVG Icons
+- [ ] Tailwind Group
+- [ ] Pagination (prisma `skip`/`take`)
+- [ ] geoLocation (custom hook)
+- [ ] image alt
+- [ ] Alert Component
+- [ ] Infinite Scroll
+- [ ] Reply to Reply
+- [ ] Oauth
+- [ ] Video, Link
 
 ## Structure
 
@@ -93,7 +93,7 @@ Next.js Full Stack Mini Twitter Like Mobile Web App
 - `/user/[userId]/edit`
 - `/user/[userId]/delete`
 
-- `/utils/files`
+- `/api/cloudflare`
 
 ## Database Flow
 
