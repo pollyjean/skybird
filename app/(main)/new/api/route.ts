@@ -1,11 +1,12 @@
 import client from "@/libs/server/client";
+import { getServerActionSession } from "@/libs/server/session";
 import { handleErrors } from "@/utils";
 
-export async function POST(
-  request: Request,
-  { params }: { params: { userId: string } },
-) {
-  const { userId, text, image } = await request.json();
+export async function POST(request: Request) {
+  const { text, image } = await request.json();
+  const {
+    user: { id },
+  } = await getServerActionSession();
   let tweet;
 
   try {
@@ -13,8 +14,8 @@ export async function POST(
       tweet = await client.tweet.create({
         data: {
           text,
-          image: image,
-          authorId: userId,
+          image,
+          authorId: id,
         },
         include: {
           author: true,
@@ -24,15 +25,13 @@ export async function POST(
       tweet = await client.tweet.create({
         data: {
           text,
-          authorId: userId,
+          authorId: id,
         },
         include: {
           author: true,
         },
       });
     }
-
-    console.log(tweet);
 
     return new Response(JSON.stringify({ tweetId: tweet.id }), { status: 200 });
   } catch (error: unknown) {

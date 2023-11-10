@@ -8,7 +8,7 @@ import { redirect } from "next/navigation";
 import { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 
-const TweetForm = ({ userId }: PageProps) => {
+const TweetForm = () => {
   const [preview, setPreview] = useState("");
   const {
     register,
@@ -28,9 +28,9 @@ const TweetForm = ({ userId }: PageProps) => {
       const { result: data } = await (
         await fetch(uploadURL, { method: "POST", body: form })
       ).json();
-      mutate({ userId, text: formData.text, image: data.id });
+      mutate({ text: formData.text, image: data.id });
     } else {
-      mutate({ userId, text: formData.text });
+      mutate({ text: formData.text });
     }
   };
   const image = watch("image");

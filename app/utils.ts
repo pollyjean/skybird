@@ -5,6 +5,12 @@ export function cls(...classnames: string[]) {
 export const postFetcher = (url: string) =>
   fetch(url, { method: "POST" }).then((response) => response.json());
 
+export const postFetcherUserId = (url: string) =>
+  fetch(url, {
+    method: "POST",
+    body: JSON.stringify({ userId: undefined }),
+  }).then((response) => response.json());
+
 export const handleErrors = (error: unknown) => {
   console.error((error as Error).message);
   return new Response(JSON.stringify({ message: (error as Error).message }), {

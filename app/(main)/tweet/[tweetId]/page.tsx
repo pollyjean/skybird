@@ -18,6 +18,7 @@ const Page = async ({ params }: { params: { tweetId: string } }) => {
           avatar: true,
         },
       },
+      likes: true,
     },
   });
 
@@ -50,7 +51,7 @@ const Page = async ({ params }: { params: { tweetId: string } }) => {
           />
         </figure>
       ) : null}
-      <Like />
+      <Like tweetId={+params.tweetId} userId={session.user.id} />
       <aside>{convertLocalTime(tweet?.createdAt as Date)}</aside>
     </section>
   );

@@ -16,7 +16,7 @@
     "@prisma/client": "^5.5.2",
     "bcrypt": "^5.1.1",
     "iron-session": "github:renchris/iron-session#v8-as-dependency",
-    "next": "^14.0.1",
+    "next": "^14.0.2",
     "react": "^18",
     "react-dom": "^18",
     "react-hook-form": "^7.47.0",

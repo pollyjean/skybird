@@ -9,7 +9,6 @@ const Page = () => {
   const { data, isLoading } = useSWR("/api/user/logout", postFetcher);
 
   useEffect(() => {
-    console.log(data, isLoading);
     if (!isLoading && data?.ok) {
       redirect("/log-in");
     }

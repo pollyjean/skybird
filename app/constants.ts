@@ -8,13 +8,16 @@ export interface AccountFormValues {
 
 export interface TweetFormValues {
   id?: number;
-  text: string;
+  text?: string;
   image?: FileList;
+  likes?: number;
+  userId?: string;
 }
 
 export interface FetchResults {
   ok?: boolean;
   tweetId?: number;
+  likes?: number;
   message?: {
     type: "email" | "username" | "password" | "passwordConfirm" | "avatar";
     value: string;
@@ -23,7 +26,8 @@ export interface FetchResults {
 }
 
 export interface PageProps {
-  userId: number;
+  userId?: number;
+  tweetId?: number;
 }
 
 export const TAIL = {
