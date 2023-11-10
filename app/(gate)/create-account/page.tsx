@@ -1,12 +1,14 @@
+import { cls } from "@/utils";
 import AccountForm from "./AccountForm";
 import Link from "next/link";
+import { TAIL } from "@/constants";
 
 const Page = () => {
   return (
     <>
-      <h1 className="text-2xl font-bold">Create Account</h1>
+      <h1 className={cls(TAIL.pageTitle)}>Create Account</h1>
       <AccountForm />
-      <Link href="/log-in" className="hover:underline hover:underline-offset-2">
+      <Link href="/log-in" className={cls(TAIL.textLink)}>
         Have an account? Log in here &rarr;
       </Link>
     </>

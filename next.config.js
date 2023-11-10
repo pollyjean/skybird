@@ -8,9 +8,8 @@ module.exports = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "imagedelivery.net/",
+        hostname: "imagedelivery.net",
         port: "",
-        pathname: "/**",
       },
     ],
   },

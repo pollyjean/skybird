@@ -4,6 +4,9 @@ const Menu = () => {
     <nav>
       <menu>
         <li>
+          <Link href="/new">New</Link>
+        </li>
+        <li>
           <Link href="/">Posts</Link>
         </li>
 
@@ -12,7 +15,11 @@ const Menu = () => {
         </li>
 
         <li>
-          <Link href="/log-out">Profile</Link>
+          <Link href="/profile">Profile</Link>
+        </li>
+
+        <li>
+          <Link href="/log-out">Log out</Link>
         </li>
       </menu>
     </nav>

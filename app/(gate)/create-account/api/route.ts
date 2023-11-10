@@ -1,6 +1,7 @@
 import bcrypt from "bcrypt";
 import client from "@/libs/server/client";
 import { getServerActionSession } from "@/libs/server/session";
+import { handleErrors } from "@/utils";
 
 export async function POST(request: Request) {
   const session = await getServerActionSession();
@@ -9,7 +10,14 @@ export async function POST(request: Request) {
   let user = await client.user.findUnique({ where: { email } });
 
   if (user) {
-    return new Response(JSON.stringify({ ok: false }), { status: 409 });
+    return new Response(
+      JSON.stringify({
+        message: { type: "email", value: "Account already exists" },
+      }),
+      {
+        status: 400,
+      },
+    );
   }
   const textPassword = password;
   const protectedPassword = await bcrypt.hash(textPassword, 8);
@@ -28,9 +36,8 @@ export async function POST(request: Request) {
       email: user.email,
     };
     await session.save();
-  } catch (error) {
-    console.error(error);
-    return new Response("", { status: 503 });
+    return new Response(JSON.stringify({ ok: true }), { status: 200 });
+  } catch (error: unknown) {
+    return handleErrors(error);
   }
-  return new Response(JSON.stringify({ ok: true }), { status: 200 });
 }

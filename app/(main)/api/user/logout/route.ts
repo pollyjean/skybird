@@ -4,7 +4,6 @@ export async function POST(request: Request) {
   const session = await getServerActionSession();
 
   if (session) {
-    console.log(session);
     session.destroy();
     return new Response(JSON.stringify({ ok: true }), { status: 200 });
   } else {

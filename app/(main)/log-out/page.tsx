@@ -10,6 +10,9 @@ const Page = () => {
 
   useEffect(() => {
     console.log(data, isLoading);
+    if (!isLoading && data?.ok) {
+      redirect("/log-in");
+    }
   }, [data, isLoading]);
 
   return <>{isLoading ? <h1>Log out</h1> : null}</>;

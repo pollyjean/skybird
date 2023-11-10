@@ -1,10 +1,19 @@
 "use client";
 
 import useMutation from "@/libs/client/useMutation";
-import { AccountFormValues, StatusReturns } from "@/constants";
+import {
+  AccountFormValues,
+  FetchResults,
+  MESSAGE,
+  PATTERN,
+  PLACEHOLDER,
+  REQUIRED,
+  TAIL,
+} from "@/constants";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useEffect } from "react";
 import { redirect } from "next/navigation";
+import { cls } from "@/utils";
 
 const AccountForm = () => {
   const {
@@ -13,8 +22,9 @@ const AccountForm = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<AccountFormValues>({ mode: "onChange" });
-  const [mutate, { loading, data, error }] =
-    useMutation<StatusReturns>("/api/user/new");
+  const [mutate, { loading, data, error }] = useMutation<FetchResults>(
+    "/create-account/api",
+  );
   const onSubmit: SubmitHandler<AccountFormValues> = (formData) => {
     if (formData && formData.password !== formData.passwordConfirm) {
       setError(
@@ -27,99 +37,102 @@ const AccountForm = () => {
     }
   };
   useEffect(() => {
-    if (!loading && data?.ok) {
+    if (!loading && data?.ok === true) {
       redirect("/");
     }
+    if (!loading && data?.message?.type) {
+      setError(
+        data.message.type,
+        { message: data.message.value },
+        { shouldFocus: true },
+      );
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loading, data]);
   if (error) console.error(error);
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col gap-4 rounded-md border border-base-900 p-4"
-    >
-      <div className="relative flex flex-col gap-1">
-        <label htmlFor="email" className="text-sm font-medium text-base-200">
+    <form onSubmit={handleSubmit(onSubmit)} className={cls(TAIL.form)}>
+      <div className={cls(TAIL.groupInput)}>
+        <label htmlFor="email" className={cls(TAIL.label)}>
           Email
         </label>
         <input
           type="email"
           id="email"
-          placeholder="ex) youremail@domain.com"
-          className="rounded-md border border-base-200 bg-base-950 p-3 text-sm placeholder:opacity-40"
+          placeholder={PLACEHOLDER.email}
+          className={cls(TAIL.textInput)}
           {...register("email", {
+            required: REQUIRED.email,
             pattern: {
-              value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-              message: "Please enter as an email",
+              value: PATTERN.email,
+              message: MESSAGE.email,
             },
           })}
         />
-        <p className="absolute right-0 top-0 h-5 text-xs text-red">
+        <p className={cls(TAIL.formError)}>
           {errors.email?.message && errors.email.message}
         </p>
       </div>
 
-      <div className="relative flex flex-col gap-1">
-        <label htmlFor="username" className="text-sm font-medium text-base-200">
+      <div className={cls(TAIL.groupInput)}>
+        <label htmlFor="username" className={cls(TAIL.label)}>
           Name
         </label>
         <input
           type="text"
           id="username"
-          placeholder="At least 3 characters"
-          className="rounded-md border border-base-200 bg-base-950 p-3 text-sm placeholder:opacity-40"
+          placeholder={PLACEHOLDER.three}
+          className={cls(TAIL.textInput)}
           {...register("username", {
             minLength: {
               value: 3,
-              message: "Enter at least 3 characters",
+              message: MESSAGE.three,
             },
           })}
         />
-        <p className="absolute right-0 top-0 h-5 text-xs text-red">
+        <p className={cls(TAIL.formError)}>
           {errors.username?.message && errors.username.message}
         </p>
       </div>
 
-      <div className="relative flex flex-col gap-1">
-        <label htmlFor="password" className="text-sm font-medium text-base-200">
+      <div className={cls(TAIL.groupInput)}>
+        <label htmlFor="password" className={cls(TAIL.label)}>
           Password
         </label>
         <input
           type="password"
           id="password"
-          placeholder="At least 3 characters"
-          className="rounded-md border border-base-200 bg-base-950 p-3 text-sm placeholder:opacity-40"
+          placeholder={PLACEHOLDER.three}
+          className={cls(TAIL.textInput)}
           {...register("password", {
-            required: "Password is required",
+            required: REQUIRED.password,
             minLength: {
               value: 3,
-              message: "Enter at least 3 characters",
+              message: MESSAGE.three,
             },
           })}
         />
-        <p className="absolute right-0 top-0 h-5 text-xs text-red">
+        <p className={cls(TAIL.formError)}>
           {errors.password?.message && errors.password.message}
         </p>
       </div>
 
-      <div className="relative flex flex-col gap-1">
-        <label
-          htmlFor="passwordConfirm"
-          className="text-sm font-medium text-base-200"
-        >
+      <div className={cls(TAIL.groupInput)}>
+        <label htmlFor="passwordConfirm" className={cls(TAIL.label)}>
           Password Confirm
         </label>
         <input
           type="password"
           id="passwordConfirm"
-          placeholder="Enter your password again"
-          className="rounded-md border border-base-200 bg-base-950 p-3 text-sm placeholder:opacity-40"
-          {...register("passwordConfirm", { required: "Enter Password Again" })}
+          placeholder={PLACEHOLDER.passwordAgain}
+          className={cls(TAIL.textInput)}
+          {...register("passwordConfirm", { required: REQUIRED.passwordAgain })}
         />
-        <p className="absolute right-0 top-0 h-5 text-xs text-red">
+        <p className={cls(TAIL.formError)}>
           {errors.passwordConfirm?.message && errors.passwordConfirm.message}
         </p>
       </div>
-      <button type="submit" className="mt-2 rounded-md bg-blue p-2 font-medium">
+      <button type="submit" className={cls(TAIL.button)}>
         {loading ? "Loading..." : "Create Account"}
       </button>
     </form>
