@@ -7,7 +7,7 @@ const Menu = () => {
           <Link href="/new">New</Link>
         </li>
         <li>
-          <Link href="/">Posts</Link>
+          <Link href="/">Tweets</Link>
         </li>
 
         <li>

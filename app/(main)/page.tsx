@@ -3,6 +3,7 @@ import { cls, generateImageUrl } from "@/utils";
 import client from "@/libs/server/client";
 import { getServerActionSession } from "@/libs/server/session";
 import Image from "next/image";
+import Link from "next/link";
 
 const Page = async () => {
   const tweets = await client.tweet.findMany({ take: 10 });
@@ -13,18 +14,20 @@ const Page = async () => {
       <ul>
         {tweets.map((tweet) => (
           <li key={tweet.id}>
-            <h2>{tweet.authorId}</h2>
-            <p>{tweet?.text}</p>
-            {tweet.image && (
-              <figure>
-                <Image
-                  src={generateImageUrl(tweet.image)}
-                  alt="Post Image"
-                  width={350}
-                  height={250}
-                />
-              </figure>
-            )}
+            <Link href={`/tweet/${tweet.id}`} className="block">
+              <h2>{tweet.authorId}</h2>
+              <p>{tweet?.text}</p>
+              {tweet.image && (
+                <figure>
+                  <Image
+                    src={generateImageUrl(tweet.image)}
+                    alt="Post Image"
+                    width={350}
+                    height={250}
+                  />
+                </figure>
+              )}
+            </Link>
           </li>
         ))}
       </ul>

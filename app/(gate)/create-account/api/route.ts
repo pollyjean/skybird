@@ -26,7 +26,7 @@ export async function POST(request: Request) {
     user = await client.user.create({
       data: {
         email,
-        username,
+        username: username.length > 0 ? username : "anonymous",
         password: protectedPassword,
       },
     });

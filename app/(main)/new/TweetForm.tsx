@@ -43,7 +43,7 @@ const TweetForm = ({ userId }: PageProps) => {
 
   useEffect(() => {
     if (!loading && data?.tweetId) {
-      redirect(`/post/${data.tweetId}`);
+      redirect(`/tweet/${data.tweetId}`);
     }
   }, [loading, data]);
   if (error) console.error(error);
