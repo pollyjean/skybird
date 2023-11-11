@@ -38,8 +38,10 @@ const TweetForm = () => {
     if (image && image.length > 0) {
       const file = image[0];
       setPreview(URL.createObjectURL(file));
+    } else if (image && image.length === 0) {
+      setPreview("");
     }
-  }, [image]);
+  }, [image, watch]);
 
   useEffect(() => {
     if (!loading && data?.tweetId) {
@@ -73,18 +75,22 @@ const TweetForm = () => {
           type="file"
           id="image"
           accept="image/*"
-          className="rounded-md border border-base-200 bg-base-950 p-3 text-sm placeholder:opacity-40"
+          className="bg-base-250 rounded-md border border-base-200 p-3 text-sm placeholder:opacity-40"
           {...register("image")}
         />
-        <figure>
-          <Image
-            src={preview ? preview : "/transparent.png"}
-            width={100}
-            height={100}
-            alt="Image Preview"
-            priority={true}
-            className="h-14 w-14 rounded-md object-cover"
-          />
+        <figure className="my-5 w-full border-2 border-dashed border-base-200">
+          {preview ? (
+            <Image
+              src={preview ? preview : "/transparent.png"}
+              width={600}
+              height={600}
+              alt="Image Preview"
+              priority={true}
+              className="rounded-md object-cover"
+            />
+          ) : (
+            <div className="h-14 w-14 rounded-md object-cover"></div>
+          )}
         </figure>
         <p className={cls(TAIL.formError)}>
           {errors.image?.message && errors.image.message}

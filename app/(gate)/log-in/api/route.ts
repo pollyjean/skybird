@@ -10,7 +10,14 @@ export async function POST(request: Request) {
   let user = await client.user.findUnique({ where: { email } });
 
   if (!user) {
-    return new Response(JSON.stringify({ ok: false }), { status: 400 });
+    return new Response(
+      JSON.stringify(
+        JSON.stringify({
+          message: { type: "email", value: "Account is not exist" },
+        }),
+      ),
+      { status: 400 },
+    );
   }
   const textPassword = password;
   const protectedPassword = user.password as string;
@@ -28,7 +35,7 @@ export async function POST(request: Request) {
     } else {
       return new Response(
         JSON.stringify({
-          message: { type: password, value: "Password is incorrect" },
+          message: { type: "password", value: "Password is incorrect" },
         }),
         { status: 400 },
       );

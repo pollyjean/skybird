@@ -20,6 +20,7 @@ Next.js Full Stack Mini Twitter Like Mobile Web App
 - [ ] View Count, Like Count, Reply Count
 - [ ] Search Tweet
 - [ ] SVG Icons
+- [ ] middleware.ts
 - [ ] Tailwind Group
 - [ ] Pagination (prisma `skip`/`take`)
 - [ ] geoLocation (custom hook)

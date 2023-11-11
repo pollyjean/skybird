@@ -1,11 +1,10 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Noto_Sans_KR } from "next/font/google";
 import "@/globals.css";
-import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { getServerActionSession } from "@/libs/server/session";
 
-const inter = Inter({ subsets: ["latin"] });
+const noto = Noto_Sans_KR({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Skybird Mart",
@@ -23,7 +22,7 @@ export default async function RootLayout({
   }
   return (
     <html lang="en">
-      <body className={`${inter.className} + ${"mx-auto w-full max-w-xl"}`}>
+      <body className={`${noto.className} + ${"mx-auto w-full max-w-xl"}`}>
         {children}
       </body>
     </html>
