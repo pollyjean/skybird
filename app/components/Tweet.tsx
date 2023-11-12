@@ -1,4 +1,4 @@
-import { TweetFormValues } from "@/constants";
+import { LikeValues, TweetFormValues } from "@/constants";
 import { convertLocalTime, generateImageUrl } from "@/utils";
 import Image from "next/image";
 import Link from "next/link";
@@ -8,6 +8,7 @@ interface TweetProps {
 }
 
 const Tweet = ({ tweet }: TweetProps) => {
+  console.log("Tweet", tweet);
   return (
     <li className="border-orange-right flex flex-col gap-5 border-t-2 border-orange-light py-5">
       {tweet.author && (
@@ -47,7 +48,7 @@ const Tweet = ({ tweet }: TweetProps) => {
             />
           </figure>
         )}
-        <p>{tweet?.likes as number} Likes</p>
+        <p>{(tweet?.likes as LikeValues[]).length} Likes</p>
         <aside>{convertLocalTime(tweet?.createdAt as Date)}</aside>
       </Link>
     </li>

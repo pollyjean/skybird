@@ -1,6 +1,6 @@
 "use client";
 
-import { PageProps, TweetFormValues } from "@/constants";
+import { LikeValues, PageProps, TweetFormValues } from "@/constants";
 import { postFetcherUserId } from "@/utils";
 import { useEffect, useState } from "react";
 import useSWR from "swr";
@@ -15,7 +15,7 @@ const Like = ({ tweetId, userId }: PageProps) => {
   const onClick = async () => {
     if (!isLoading) {
       setIsLiked(data?.userId);
-      setValue(data?.likes as number);
+      setValue((data?.likes as LikeValues[]).length);
       const local = {
         userId: !(data?.userId || undefined),
         likes: !!data?.userId

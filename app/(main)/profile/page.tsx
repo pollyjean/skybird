@@ -52,6 +52,8 @@ const Page = async () => {
     },
   });
 
+  console.log("Likes", user?.tweets, user?.likes);
+
   return (
     <section>
       <h1 className={cls(TAIL.pageTitle)}>Profile</h1>
@@ -79,7 +81,7 @@ const Page = async () => {
         </Link>
       </aside>
 
-      {(user?.tweets.length as number) > 0 && (
+      {(user?.tweets?.length as number) > 0 && (
         <article>
           <h3>My tweets</h3>
           <ul>
@@ -96,7 +98,7 @@ const Page = async () => {
           <ul>
             {user?.likes.map((like) => (
               <Fragment key={like.id}>
-                <Tweet tweet={like.tweet} />
+                <Tweet key={like.tweetId} tweet={like.tweet} />
               </Fragment>
             ))}
           </ul>
