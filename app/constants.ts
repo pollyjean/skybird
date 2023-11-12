@@ -35,20 +35,14 @@ export interface FetchResults {
   likes?: number;
   message?: {
     type?:
+      | `root.${string}`
       | "email"
       | "username"
       | "password"
       | "passwordConfirm"
       | "avatar"
       | "profile"
-      | `root.${string}`
-      | "root"
-      | "avatar.slice"
-      | "avatar.text"
-      | "avatar.size"
-      | "avatar.type"
-      | "avatar.arrayBuffer"
-      | "avatar.stream";
+      | "root";
     value: string;
   };
   error?: any;

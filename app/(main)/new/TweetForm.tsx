@@ -25,14 +25,14 @@ const TweetForm = () => {
         formData.image[0] &&
         typeof formData.image === "object"
       ) {
-        const { uploadURL } = await(
-          await fetch("/api/cloudflare", { method: "POST" }),
+        const { uploadURL } = await (
+          await fetch("/api/cloudflare", { method: "POST" })
         ).json();
         const form = new FormData();
         const file = formData.image[0];
         form.append("file", file, `postImage-${formData.id}`);
-        const { result: data } = await(
-          await fetch(uploadURL, { method: "POST", body: form }),
+        const { result: data } = await (
+          await fetch(uploadURL, { method: "POST", body: form })
         ).json();
         mutate({ text: formData.text, image: data.id });
       } else {
