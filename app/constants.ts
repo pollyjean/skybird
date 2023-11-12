@@ -5,7 +5,7 @@ export interface AccountFormValues {
   username?: string | null;
   password?: string;
   passwordConfirm?: string;
-  avatar?: FileList | string;
+  avatar?: FileList | null | string;
   profile?: string;
 }
 
@@ -16,7 +16,7 @@ export interface SearchFormValues {
 export interface TweetFormValues extends AccountFormValues {
   id?: number;
   text?: string;
-  image?: FileList | string;
+  image?: FileList | null | string;
   likes?: LikeValues[] | number;
   userId?: number;
   author?: AccountFormValues;
@@ -59,6 +59,19 @@ export interface PageProps {
   userId?: number;
   tweetId?: number;
 }
+export const ImageProps = {
+  priority: true,
+  width: 536,
+  height: 536,
+  sizes: "100vw",
+};
+
+export const ProfileProps = {
+  priority: true,
+  width: 134,
+  height: 134,
+  sizes: "100vw",
+};
 
 export const TAIL = {
   form: "flex flex-col gap-4 rounded-md border border-base-300 p-4",

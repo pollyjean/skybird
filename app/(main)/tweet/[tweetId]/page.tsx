@@ -1,4 +1,4 @@
-import { TAIL } from "@/constants";
+import { ImageProps, TAIL } from "@/constants";
 import { cls, convertLocalTime, generateImageUrl } from "@/utils";
 import client from "@/libs/server/client";
 import { getServerActionSession } from "@/libs/server/session";
@@ -24,17 +24,16 @@ const Page = async ({ params }: { params: { tweetId: string } }) => {
 
   return (
     <section>
-      <h1 className={cls(TAIL.pageTitle)}>Post View</h1>
+      <h1 className={cls(TAIL.pageTitle)}>Tweet</h1>
       <h2>
         <Link href={`/profile/{tweet?.authorId}`}>
           {tweet?.author.username}({tweet?.author.email})
           {tweet?.author.avatar && (
             <figure>
               <Image
-                src={generateImageUrl(tweet.author.avatar)}
+                src={generateImageUrl(tweet.author.avatar, "profileImage")}
                 alt={`${tweet.author.username}'s Avatar`}
-                width={100}
-                height={100}
+                {...ImageProps}
               />
             </figure>
           )}
@@ -44,10 +43,10 @@ const Page = async ({ params }: { params: { tweetId: string } }) => {
       {tweet?.image ? (
         <figure>
           <Image
-            src={generateImageUrl(tweet.image)}
+            src={generateImageUrl(tweet.image, "tweetImage")}
             alt="Post Image"
-            width={350}
-            height={250}
+            className="h-auto w-full"
+            {...ImageProps}
           />
         </figure>
       ) : null}

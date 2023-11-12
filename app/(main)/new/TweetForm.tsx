@@ -1,6 +1,6 @@
 "use client";
 
-import { FetchResults, TAIL, TweetFormValues } from "@/constants";
+import { FetchResults, ImageProps, TAIL, TweetFormValues } from "@/constants";
 import useMutation from "@/libs/client/useMutation";
 import { cls } from "@/utils";
 import Image from "next/image";
@@ -26,7 +26,7 @@ const TweetForm = () => {
       const form = new FormData();
       form.append(
         "file",
-        formData?.image as unknown as Blob,
+        formData.image[0] as Blob,
         `postImage-${formData.id}`,
       );
       const { result: data } = await (
@@ -40,7 +40,7 @@ const TweetForm = () => {
   const image = watch("image");
   useEffect(() => {
     if (image) {
-      setPreview(URL.createObjectURL(image[0] as unknown as Blob));
+      setPreview(URL.createObjectURL(image[0] as Blob));
     }
   }, [image]);
 
@@ -51,62 +51,57 @@ const TweetForm = () => {
   }, [loading, data]);
   if (error) console.error(error);
   return (
-    <section>
-      <h1 className={cls(TAIL.pageTitle)}>Profile Edit</h1>
-      <form onSubmit={handleSubmit(onSubmit)} className={cls(TAIL.form)}>
-        <div className={cls(TAIL.groupInput)}>
-          <label htmlFor="text" className={cls(TAIL.label)}>
-            Text
-          </label>
-          <textarea
-            id="text"
-            placeholder="What's up today?"
-            className={cls(TAIL.textInput)}
-            {...register("text", {
-              required: "Please enter the content",
-            })}
-          ></textarea>
-          <p className={cls(TAIL.formError)}>
-            {errors.text?.message && errors.text.message}
-          </p>
-        </div>
-        <div className={cls(TAIL.groupInput)}>
-          <label htmlFor="image" className={cls(TAIL.label)}>
-            Image
-          </label>
-          <input
-            type="file"
-            id="image"
-            accept="image/*"
-            className={cls(TAIL.fileInput)}
-            {...register("image")}
-          />
-          <figure className="my-5 w-full border-2 border-dashed border-base-200">
-            {preview ? (
-              <Image
-                src={
-                  preview ? (preview as unknown as string) : "/transparent.png"
-                }
-                width={600}
-                height={600}
-                alt="Image Preview"
-                priority={true}
-                className="rounded-md object-cover"
-              />
-            ) : (
-              <div className="h-14 w-14 rounded-md object-cover"></div>
-            )}
-          </figure>
-          <p className={cls(TAIL.formError)}>
-            {errors.image?.message && errors.image.message}
-          </p>
-        </div>
+    <form onSubmit={handleSubmit(onSubmit)} className={cls(TAIL.form)}>
+      <div className={cls(TAIL.groupInput)}>
+        <label htmlFor="text" className={cls(TAIL.label)}>
+          Text
+        </label>
+        <textarea
+          id="text"
+          placeholder="What's up today?"
+          className={cls(TAIL.textInput)}
+          {...register("text", {
+            required: "Please enter the content",
+          })}
+        ></textarea>
+        <p className={cls(TAIL.formError)}>
+          {errors.text?.message && errors.text.message}
+        </p>
+      </div>
+      <div className={cls(TAIL.groupInput)}>
+        <label htmlFor="image" className={cls(TAIL.label)}>
+          Image
+        </label>
+        <input
+          type="file"
+          id="image"
+          accept="image/*"
+          className={cls(TAIL.fileInput)}
+          {...register("image")}
+        />
+        <figure className="my-5 w-full border-2 border-dashed border-base-200">
+          {preview ? (
+            <Image
+              src={
+                preview ? (preview as unknown as string) : "/transparent.png"
+              }
+              alt="Image Preview"
+              className="rounded-md object-cover"
+              {...ImageProps}
+            />
+          ) : (
+            <div className="h-14 w-14 rounded-md object-cover"></div>
+          )}
+        </figure>
+        <p className={cls(TAIL.formError)}>
+          {errors.image?.message && errors.image.message}
+        </p>
+      </div>
 
-        <button type="submit" className={cls(TAIL.button)}>
-          {loading ? "Loading..." : "Post Content"}
-        </button>
-      </form>
-    </section>
+      <button type="submit" className={cls(TAIL.button)}>
+        {loading ? "Loading..." : "Post Content"}
+      </button>
+    </form>
   );
 };
 export default TweetForm;

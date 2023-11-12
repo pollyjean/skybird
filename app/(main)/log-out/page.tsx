@@ -6,7 +6,7 @@ import { useEffect } from "react";
 import useSWR from "swr";
 
 const Page = () => {
-  const { data, isLoading } = useSWR("/logout/api", postFetcher);
+  const { data, isLoading } = useSWR("/log-out/api", postFetcher);
 
   useEffect(() => {
     if (!isLoading && data?.ok) {

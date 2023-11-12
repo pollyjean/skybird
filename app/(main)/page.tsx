@@ -1,7 +1,5 @@
 import { TAIL } from "@/constants";
-import Image from "next/image";
-import Link from "next/link";
-import { cls, convertLocalTime, generateImageUrl } from "@/utils";
+import { cls } from "@/utils";
 import { getAllTweets } from "@/libs/server/getAllTweets";
 import Tweet from "@/components/Tweet";
 

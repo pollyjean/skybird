@@ -18,7 +18,10 @@ export const handleErrors = (error: unknown) => {
   });
 };
 
-export const generateImageUrl = (image_id: string, variant_name = "public") => {
+export const generateImageUrl = (
+  image_id: string | FileList,
+  variant_name: "public" | "profileImage" | "tweetImage" = "public",
+) => {
   return `https://imagedelivery.net/Kz3fZuhiaWedOCgrW7E2tA/${image_id}/${variant_name}`;
 };
 

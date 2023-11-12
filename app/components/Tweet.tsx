@@ -1,4 +1,4 @@
-import { LikeValues, TweetFormValues } from "@/constants";
+import { ImageProps, LikeValues, TweetFormValues } from "@/constants";
 import { convertLocalTime, generateImageUrl } from "@/utils";
 import Image from "next/image";
 import Link from "next/link";
@@ -8,7 +8,6 @@ interface TweetProps {
 }
 
 const Tweet = ({ tweet }: TweetProps) => {
-  console.log("Tweet", tweet);
   return (
     <li className="border-orange-right flex flex-col gap-5 border-t-2 border-orange-light py-5">
       {tweet.author && (
@@ -21,11 +20,10 @@ const Tweet = ({ tweet }: TweetProps) => {
           {tweet?.author?.avatar && (
             <figure>
               <Image
-                src={generateImageUrl(tweet.author.avatar as string)}
+                src={generateImageUrl(tweet.author.avatar, "profileImage")}
                 alt={`${tweet.author.username}'s Avatar`}
-                width={536}
-                height={536}
-                className="w-full"
+                className="h-auto w-full"
+                {...ImageProps}
               />
             </figure>
           )}
@@ -40,15 +38,17 @@ const Tweet = ({ tweet }: TweetProps) => {
         {tweet.image && (
           <figure>
             <Image
-              src={generateImageUrl(tweet.image as string)}
+              src={generateImageUrl(tweet.image, "tweetImage")}
               alt="Post Image"
-              width={250}
-              height={250}
-              priority={true}
+              {...ImageProps}
             />
           </figure>
         )}
-        <p>{(tweet?.likes as LikeValues[]).length} Likes</p>
+        <p>
+          {typeof tweet?.likes === "number"
+            ? tweet.likes
+            : tweet?.likes?.length}
+        </p>
         <aside>{convertLocalTime(tweet?.createdAt as Date)}</aside>
       </Link>
     </li>

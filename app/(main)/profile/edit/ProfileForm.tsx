@@ -1,6 +1,12 @@
 "use client";
 
-import { AccountFormValues, MESSAGE, PLACEHOLDER, TAIL } from "@/constants";
+import {
+  AccountFormValues,
+  MESSAGE,
+  PLACEHOLDER,
+  ProfileProps,
+  TAIL,
+} from "@/constants";
 import useMutation from "@/libs/client/useMutation";
 import { cls } from "@/utils";
 import Image from "next/image";
@@ -22,11 +28,8 @@ const ProfileForm = ({ sessionId }: { sessionId: number }) => {
         await fetch("/cloudflare", { method: "POST" })
       ).json();
       const form = new FormData();
-      form.append(
-        "file",
-        formData?.avatar as unknown as Blob,
-        `avatar-${Date.now()}`,
-      );
+
+      form.append("file", formData.avatar[0] as Blob, `avatar-${Date.now()}`);
       const { result: data } = await (
         await fetch(uploadURL, { method: "POST", body: form })
       ).json();
@@ -38,7 +41,7 @@ const ProfileForm = ({ sessionId }: { sessionId: number }) => {
   const avatar = watch("avatar");
   useEffect(() => {
     if (avatar) {
-      setPreview(URL.createObjectURL(avatar[0] as unknown as Blob));
+      setPreview(URL.createObjectURL(avatar[0] as Blob));
     }
   }, [avatar]);
 
@@ -101,11 +104,9 @@ const ProfileForm = ({ sessionId }: { sessionId: number }) => {
               src={
                 preview ? (preview as unknown as string) : "/transparent.png"
               }
-              width={600}
-              height={600}
               alt="Image Preview"
-              priority={true}
               className="rounded-md object-cover"
+              {...ProfileProps}
             />
           ) : (
             <div className="h-14 w-14 rounded-md object-cover"></div>

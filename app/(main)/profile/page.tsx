@@ -1,5 +1,5 @@
-import { TAIL } from "@/constants";
-import { cls, convertLocalTime, generateImageUrl } from "@/utils";
+import { ProfileProps, TAIL } from "@/constants";
+import { cls, generateImageUrl } from "@/utils";
 import client from "@/libs/server/client";
 import { getServerActionSession } from "@/libs/server/session";
 import Image from "next/image";
@@ -52,8 +52,6 @@ const Page = async () => {
     },
   });
 
-  console.log("Likes", user?.tweets, user?.likes);
-
   return (
     <section>
       <h1 className={cls(TAIL.pageTitle)}>Profile</h1>
@@ -62,10 +60,9 @@ const Page = async () => {
         {user?.avatar && (
           <figure>
             <Image
-              src={generateImageUrl(user.avatar)}
+              src={generateImageUrl(user.avatar, "profileImage")}
               alt={`${user.username}'s Avatar`}
-              width={100}
-              height={100}
+              {...ProfileProps}
             />
           </figure>
         )}
