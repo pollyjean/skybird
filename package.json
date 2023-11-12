@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "npx next dev",
-    "build": "npx prisma build && npx next build",
+    "build": "npx prisma generate && npx next build",
     "start": "npx next start",
     "lint": "npx next lint",
     "db@connect": "pscale connect skybird-mart",

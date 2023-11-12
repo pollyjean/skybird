@@ -1,5 +1,7 @@
 # Skybird
 
+[Skybird](https://skybird.vercel.app/)
+
 ## Goals
 
 Next.js Full Stack Mini Twitter Like Mobile Web App
@@ -14,17 +16,19 @@ Next.js Full Stack Mini Twitter Like Mobile Web App
 - [x] page router 코드를 app router 코드로 변경하기
 - [x] Prisma와 PlanetScale 설치, 설정
 - [x] Custom User React Hook
-- [ ] iron-session state 처리 (User, Other, Logout)
-- [ ] useSWR 로 상태 변경 Optimistic UI Update
-- [ ] cloudflare connect
-- [ ] View Count, Like Count, Reply Count
-- [ ] Search Tweet
+- [x] iron-session state 처리 (User, Other, Logout)
+- [x] useSWR 로 상태 변경 Optimistic UI Update
+- [x] cloudflare connect
+- [ ] View Count
+- [x] Like Count
+- [ ] Reply Count
+- [x] Search Tweet
 - [ ] SVG Icons
 - [ ] middleware.ts
-- [ ] Tailwind Group
+- [-] Tailwind Group
 - [ ] Pagination (prisma `skip`/`take`)
 - [ ] geoLocation (custom hook)
-- [ ] image alt
+- [-] image alt
 - [ ] Alert Component
 - [ ] Infinite Scroll
 - [ ] Reply to Reply
@@ -33,7 +37,7 @@ Next.js Full Stack Mini Twitter Like Mobile Web App
 
 ## Structure
 
-### View
+### View (Just Plan)
 
 (gate)
 
