@@ -1,9 +1,11 @@
+import { ReactNode } from "react";
+
 export interface AccountFormValues {
   email?: string;
   username?: string | null;
   password?: string;
   passwordConfirm?: string;
-  avatar?: string | FileList | Blob | null;
+  avatar?: FileList | string;
   profile?: string;
 }
 
@@ -14,7 +16,7 @@ export interface SearchFormValues {
 export interface TweetFormValues extends AccountFormValues {
   id?: number;
   text?: string;
-  image?: string | FileList | Blob | null;
+  image?: FileList | string;
   likes?: LikeValues[] | number;
   userId?: number;
   author?: AccountFormValues;
@@ -64,6 +66,8 @@ export const TAIL = {
   label: "text-sm font-medium text-base-800",
   textInput:
     "rounded-md border border-base-200 bg-base-250 p-3 text-sm placeholder:opacity-40",
+  fileInput:
+    "bg-base-250 rounded-md border border-base-200 p-3 text-sm placeholder:opacity-40",
   formError: "absolute right-0 top-0 h-5 text-xs text-red",
   button:
     "mt-2 rounded-md bg-blue-light border-2 border-blue p-2 font-medium text-base-50 hover:bg-blue",
