@@ -19,12 +19,12 @@ const TweetForm = () => {
   const [mutate, { loading, data, error }] =
     useMutation<FetchResults>("/new/api");
   const onSubmit: SubmitHandler<TweetFormValues> = async (formData) => {
-    if (formData.image && formData.image.length > 0) {
+    if (formData.image) {
       const { uploadURL } = await (
         await fetch("/api/cloudflare", { method: "POST" })
       ).json();
       const form = new FormData();
-      form.append("file", formData.image[0], `postImage-${formData.id}`);
+      form.append("file", formData?.image as Blob, `postImage-${formData.id}`);
       const { result: data } = await (
         await fetch(uploadURL, { method: "POST", body: form })
       ).json();
@@ -35,9 +35,8 @@ const TweetForm = () => {
   };
   const image = watch("image");
   useEffect(() => {
-    if (image && image.length > 0) {
-      const file = image[0];
-      setPreview(URL.createObjectURL(file));
+    if (image) {
+      setPreview(URL.createObjectURL(image as Blob));
     } else if (image && image.length === 0) {
       setPreview("");
     }

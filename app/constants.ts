@@ -1,28 +1,56 @@
 export interface AccountFormValues {
-  email: string;
-  username?: string;
+  email?: string;
+  username?: string | null;
   password?: string;
   passwordConfirm?: string;
-  avatar?: FileList;
+  avatar?: string | FileList | Blob | null;
+  profile?: string;
 }
 
-export interface TweetFormValues {
+export interface SearchFormValues {
+  search: string;
+}
+
+export interface TweetFormValues extends AccountFormValues {
   id?: number;
   text?: string;
-  image?: FileList;
-  likes?: number;
-  userId?: string;
+  image?: string | FileList | Blob | null;
+  likes?: LikeValues[] | number;
+  userId?: number;
+  author?: AccountFormValues;
+  authorId?: number;
+  createdAt?: Date;
+}
+
+export interface LikeValues extends TweetFormValues {
+  tweetId?: number;
 }
 
 export interface FetchResults {
+  map: any;
   ok?: boolean;
   tweetId?: number;
   likes?: number;
   message?: {
-    type: "email" | "username" | "password" | "passwordConfirm" | "avatar";
+    type?:
+      | "email"
+      | "username"
+      | "password"
+      | "passwordConfirm"
+      | "avatar"
+      | "profile"
+      | `root.${string}`
+      | "root"
+      | "avatar.slice"
+      | "avatar.text"
+      | "avatar.size"
+      | "avatar.type"
+      | "avatar.arrayBuffer"
+      | "avatar.stream";
     value: string;
   };
   error?: any;
+  data?: any;
 }
 
 export interface PageProps {
@@ -40,7 +68,8 @@ export const TAIL = {
   button:
     "mt-2 rounded-md bg-blue-light border-2 border-blue p-2 font-medium text-base-50 hover:bg-blue",
   textLink: "hover:underline hover:underline-offset-2",
-  pageTitle: "text-4xl font-medium text-base-400 uppercase tracking-tight mt-6",
+  pageTitle:
+    "text-4xl font-medium text-base-400 uppercase tracking-tight mt-6 mb-6",
 } as const;
 
 export const PATTERN = {
@@ -51,6 +80,7 @@ export const PLACEHOLDER = {
   email: "ex) youremail@domain.com",
   three: "At least 3 characters",
   passwordAgain: "Enter your password again",
+  search: "What do you want to find?",
 } as const;
 
 export const REQUIRED = {
@@ -62,4 +92,5 @@ export const REQUIRED = {
 export const MESSAGE = {
   three: "Enter at least 3 characters",
   email: "Please enter as an email",
+  search: "Enter the keyword",
 } as const;

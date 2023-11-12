@@ -1,27 +1,11 @@
 import { TAIL } from "@/constants";
-import { cls, convertLocalTime, generateImageUrl } from "@/utils";
-import client from "@/libs/server/client";
 import Image from "next/image";
 import Link from "next/link";
+import { cls, convertLocalTime, generateImageUrl } from "@/utils";
+import { getAllTweets } from "@/libs/server/getAllTweets";
 
 const Page = async () => {
-  const tweets = await client.tweet.findMany({
-    include: {
-      likes: true,
-      author: {
-        select: {
-          id: true,
-          email: true,
-          username: true,
-          avatar: true,
-        },
-      },
-    },
-    take: 10,
-    orderBy: {
-      createdAt: "desc",
-    },
-  });
+  const tweets = await getAllTweets();
   return (
     <section className="flex flex-col gap-5">
       <h1 className={cls(TAIL.pageTitle)}>Skybird</h1>

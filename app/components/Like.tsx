@@ -6,10 +6,10 @@ import { useEffect, useState } from "react";
 import useSWR from "swr";
 
 const Like = ({ tweetId, userId }: PageProps) => {
-  const [isLiked, setIsLiked] = useState<string | undefined>("");
+  const [isLiked, setIsLiked] = useState<number | undefined>(undefined);
   const [value, setValue] = useState(0);
   const { data, mutate, isLoading, error } = useSWR<TweetFormValues>(
-    `/api/tweet/${tweetId}/like`,
+    `/tweet/${tweetId}/like/api`,
     postFetcherUserId,
   );
   const onClick = async () => {
@@ -24,7 +24,7 @@ const Like = ({ tweetId, userId }: PageProps) => {
       };
       const update = async () =>
         await (
-          await fetch(`/api/tweet/${tweetId}/like/add`, {
+          await fetch(`/tweet/${tweetId}/like/add/api`, {
             method: "POST",
             body: JSON.stringify({ userId: userId }),
           })
@@ -45,7 +45,7 @@ const Like = ({ tweetId, userId }: PageProps) => {
   if (error) console.error(error);
   return (
     <>
-      <span>{data?.likes}</span>
+      <span>{data?.likes as number}</span>
       <button onClick={onClick}>
         {isLoading ? "Loading..." : <>{data?.userId ? "Unlike" : "Like"}</>}
       </button>
