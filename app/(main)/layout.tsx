@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Noto_Sans_KR } from "next/font/google";
+import { Noto_Sans_KR } from "next/font/google";
 import "@/globals.css";
 import { redirect } from "next/navigation";
 import { getServerActionSession } from "@/libs/server/session";

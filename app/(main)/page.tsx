@@ -7,7 +7,7 @@ const Page = async () => {
   const tweets = await getAllTweets();
   return (
     <section className="flex flex-col gap-5">
-      <h1 className={cls(TAIL.pageTitle)}>Skybird</h1>
+      <h1 className={cls(TAIL.pageTitle)}>Tweets</h1>
       <ul className="flex flex-col border-b-2 border-orange-light">
         {tweets.map((tweet) => (
           <Tweet key={tweet.id} tweet={tweet} />

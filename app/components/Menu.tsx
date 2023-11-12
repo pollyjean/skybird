@@ -13,7 +13,7 @@ const Menu = () => {
   );
   const pathname = usePathname();
   return (
-    <nav className="fixed bottom-0 left-0 right-0 mt-5 border-t border-base-100 bg-yellow-light bg-opacity-60 py-2 backdrop-blur-xl">
+    <nav className="fixed bottom-0 left-0 right-0 mt-5 border-t border-base-100 bg-yellow-light bg-opacity-60  py-2 backdrop-blur-xl">
       <menu className="flex items-center justify-center gap-1 text-sm">
         <MenuLink
           pathname={pathname}

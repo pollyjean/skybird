@@ -20,7 +20,7 @@ const MenuLink = ({ pathname, href, label }: MenuLinkProps) => {
     }
   }, [isLoading, data?.data]);
   return (
-    <li className="font-light">
+    <li>
       <Link
         href={href}
         prefetch={false}
@@ -29,7 +29,7 @@ const MenuLink = ({ pathname, href, label }: MenuLinkProps) => {
         }`}
       >
         {typeof label === "string" && label.includes("http") ? (
-          <span className="flex items-center font-medium">
+          <span className="flex items-center font-extrabold">
             <Image
               src={label}
               alt={!!name ? `${name}'s Avatar` : "User's Avatar"}

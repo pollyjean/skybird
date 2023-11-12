@@ -81,7 +81,7 @@ export const TAIL = {
     "mt-2 rounded-md bg-blue-light border-2 border-blue p-2 font-medium text-base-50 hover:bg-blue",
   textLink: "hover:underline hover:underline-offset-2",
   pageTitle:
-    "text-4xl font-medium text-base-400 uppercase tracking-tight mt-6 mb-6",
+    "text-2xl font-medium text-base-400 uppercase tracking-tight mt-6 mb-3",
 } as const;
 
 export const PATTERN = {
