@@ -36,7 +36,7 @@ const MenuLink = ({ pathname, href, label }: MenuLinkProps) => {
               className="mr-2 h-6 w-6 rounded-md"
               {...ProfileProps}
             />
-            {label}
+            Profile
           </span>
         ) : (
           <>{label}</>

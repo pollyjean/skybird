@@ -185,7 +185,7 @@ const ProfileForm = () => {
         </p>
       </div>
 
-      <button type="submit">
+      <button type="submit" className={cls(TAIL.button)}>
         {afterIsLoading ? "loading..." : "Change Profile"}
       </button>
     </form>
