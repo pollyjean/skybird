@@ -33,7 +33,7 @@ const ProfileForm = () => {
   const [
     editProfile,
     { data: afterData, error: afterError, loading: afterIsLoading },
-  ] = useMutation(`/profile/edit/api`);
+  ] = useMutation("/profile/edit/api");
   const onSubmit: SubmitHandler<AccountFormValues> = async (formData) => {
     try {
       if (
@@ -99,7 +99,7 @@ const ProfileForm = () => {
   if (beforeError) console.error(beforeError);
   if (afterError) console.error(afterError);
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
+    <form onSubmit={handleSubmit(onSubmit)} className={cls(TAIL.form)}>
       <div className={cls(TAIL.groupInput)}>
         <label htmlFor="email" className={cls(TAIL.label)}>
           Email

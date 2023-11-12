@@ -20,9 +20,9 @@ export async function POST(request: Request) {
     );
   }
   const textPassword = password;
-  const protectedPassword = await bcrypt.hash(textPassword, 8);
 
   try {
+    const protectedPassword = await bcrypt.hash(textPassword, 8);
     user = await client.user.create({
       data: {
         email,

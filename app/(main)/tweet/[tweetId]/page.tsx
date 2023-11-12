@@ -26,7 +26,7 @@ const Page = async ({ params }: { params: { tweetId: string } }) => {
     <section>
       <h1 className={cls(TAIL.pageTitle)}>Tweet</h1>
       <h2>
-        <Link href={`/profile/{tweet?.authorId}`}>
+        <Link href={`/profile/${tweet?.authorId}`}>
           {tweet?.author.username}({tweet?.author.email})
           {tweet?.author.avatar && (
             <figure>

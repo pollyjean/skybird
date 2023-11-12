@@ -5,6 +5,7 @@ export interface AccountFormValues {
   username?: string | null;
   password?: string;
   passwordConfirm?: string;
+  newPassword?: string;
   avatar?: FileList | null | string;
   profile?: string;
 }
@@ -104,4 +105,5 @@ export const MESSAGE = {
   three: "Enter at least 3 characters",
   email: "Please enter as an email",
   search: "Enter the keyword",
+  samePassword: "Enter the same password",
 } as const;

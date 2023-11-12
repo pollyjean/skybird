@@ -1,44 +1,51 @@
 "use client";
 
-import useMutation from "@/libs/client/useMutation";
 import {
   AccountFormValues,
-  FetchResults,
   MESSAGE,
-  PATTERN,
   PLACEHOLDER,
   REQUIRED,
   TAIL,
 } from "@/constants";
-import { SubmitHandler, useForm } from "react-hook-form";
-import { useEffect } from "react";
-import { redirect } from "next/navigation";
+import useMutation from "@/libs/client/useMutation";
 import { cls } from "@/utils";
+import { redirect } from "next/navigation";
+import { useEffect } from "react";
+import { SubmitHandler, useForm } from "react-hook-form";
 
-const AccountForm = () => {
+const PasswordForm = () => {
   const {
     register,
     setError,
     handleSubmit,
     formState: { errors },
-  } = useForm<AccountFormValues>({ mode: "onChange" });
-  const [mutate, { loading, data, error }] = useMutation<FetchResults>(
-    "/create-account/api",
+  } = useForm<AccountFormValues>({
+    mode: "onChange",
+  });
+  const [editPassword, { data, error, loading }] = useMutation(
+    "/profile/password/api",
   );
-  const onSubmit: SubmitHandler<AccountFormValues> = (formData) => {
-    if (formData && formData.password !== formData.passwordConfirm) {
+  const onSubmit: SubmitHandler<AccountFormValues> = async (formData) => {
+    if (formData && formData.newPassword !== formData.passwordConfirm) {
       setError(
-        "passwordConfirm",
+        data.message.type,
         { message: MESSAGE.samePassword },
         { shouldFocus: true },
       );
     } else {
-      mutate(formData);
+      try {
+        editPassword({
+          password: formData.password,
+          newPassword: formData.newPassword,
+        });
+      } catch (error) {
+        console.error(error);
+      }
     }
   };
   useEffect(() => {
     if (!loading && data?.ok === true) {
-      redirect("/");
+      redirect("/profile");
     }
     if (!loading && data?.message?.type) {
       setError(
@@ -52,49 +59,6 @@ const AccountForm = () => {
   if (error) console.error(error);
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={cls(TAIL.form)}>
-      <div className={cls(TAIL.groupInput)}>
-        <label htmlFor="email" className={cls(TAIL.label)}>
-          Email
-        </label>
-        <input
-          type="email"
-          id="email"
-          placeholder={PLACEHOLDER.email}
-          className={cls(TAIL.textInput)}
-          {...register("email", {
-            required: REQUIRED.email,
-            pattern: {
-              value: PATTERN.email,
-              message: MESSAGE.email,
-            },
-          })}
-        />
-        <p className={cls(TAIL.formError)}>
-          {errors.email?.message && errors.email.message}
-        </p>
-      </div>
-
-      <div className={cls(TAIL.groupInput)}>
-        <label htmlFor="username" className={cls(TAIL.label)}>
-          Name
-        </label>
-        <input
-          type="text"
-          id="username"
-          placeholder={PLACEHOLDER.three}
-          className={cls(TAIL.textInput)}
-          {...register("username", {
-            minLength: {
-              value: 3,
-              message: MESSAGE.three,
-            },
-          })}
-        />
-        <p className={cls(TAIL.formError)}>
-          {errors.username?.message && errors.username.message}
-        </p>
-      </div>
-
       <div className={cls(TAIL.groupInput)}>
         <label htmlFor="password" className={cls(TAIL.label)}>
           Password
@@ -118,6 +82,25 @@ const AccountForm = () => {
       </div>
 
       <div className={cls(TAIL.groupInput)}>
+        <label htmlFor="newPassword" className={cls(TAIL.label)}>
+          New Password
+        </label>
+        <input
+          type="password"
+          id="newPassword"
+          placeholder={PLACEHOLDER.passwordAgain}
+          className={cls(TAIL.textInput)}
+          {...register("newPassword", {
+            required: REQUIRED.password,
+            minLength: { value: 3, message: MESSAGE.three },
+          })}
+        />
+        <p className={cls(TAIL.formError)}>
+          {errors.newPassword?.message && errors.newPassword.message}
+        </p>
+      </div>
+
+      <div className={cls(TAIL.groupInput)}>
         <label htmlFor="passwordConfirm" className={cls(TAIL.label)}>
           Password Confirm
         </label>
@@ -133,9 +116,10 @@ const AccountForm = () => {
         </p>
       </div>
       <button type="submit" className={cls(TAIL.button)}>
-        {loading ? "Loading..." : "Create Account"}
+        {loading ? "Loading..." : "Change Password"}
       </button>
     </form>
   );
 };
-export default AccountForm;
+
+export default PasswordForm;

@@ -12,7 +12,7 @@ const Tweet = ({ tweet }: TweetProps) => {
     <li className="border-orange-right flex flex-col gap-5 border-t-2 border-orange-light py-5">
       {tweet.author && (
         <Link
-          href={`/profile/${tweet?.authorId}`}
+          href={"/profile/" + tweet?.authorId}
           className="flex cursor-pointer flex-col items-stretch gap-3 rounded-md p-5 hover:bg-base-100"
         >
           {tweet?.author?.username}

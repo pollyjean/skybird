@@ -1,6 +1,7 @@
 "use client";
 
-import { postFetcher } from "@/utils";
+import { TAIL } from "@/constants";
+import { cls, postFetcher } from "@/utils";
 import { redirect } from "next/navigation";
 import { useEffect } from "react";
 import useSWR from "swr";
@@ -14,6 +15,10 @@ const Page = () => {
     }
   }, [data, isLoading]);
 
-  return <>{isLoading ? <h1>Log out</h1> : null}</>;
+  return (
+    <>
+      {isLoading ? <h1 className={cls(TAIL.pageTitle)}>Loading...</h1> : null}
+    </>
+  );
 };
 export default Page;

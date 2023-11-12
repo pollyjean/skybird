@@ -1,16 +1,14 @@
-import { getServerActionSession } from "@/libs/server/session";
+import Link from "next/link";
 import ProfileForm from "./ProfileForm";
 import { cls } from "@/utils";
 import { TAIL } from "@/constants";
 
 const Page = async () => {
-  const {
-    user: { id },
-  } = await getServerActionSession();
   return (
     <main>
       <h1 className={cls(TAIL.pageTitle)}>Profile Edit</h1>
       <ProfileForm />
+      <Link href="/profile/password">Edit Password &rarr;</Link>
     </main>
   );
 };
