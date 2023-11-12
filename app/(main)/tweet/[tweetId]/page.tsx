@@ -23,11 +23,16 @@ const Page = async ({ params }: { params: { tweetId: string } }) => {
   });
 
   return (
-    <section>
+    <section className="flex flex-col gap-3">
       <h1 className={cls(TAIL.pageTitle)}>Tweet</h1>
-      <h2>
-        <Link href={`/profile/${tweet?.authorId}`}>
-          {tweet?.author.username}({tweet?.author.email})
+      <h3 className="grid grid-cols-3">
+        <Link
+          href={`/profile/${tweet?.authorId}`}
+          className="flex cursor-pointer flex-col items-center justify-center gap-3 rounded-3xl border border-base-300 p-2.5 text-center hover:bg-base-100"
+        >
+          <span>
+            <b>{tweet?.author.username}</b> ({tweet?.author.email})
+          </span>
           {tweet?.author.avatar && (
             <figure>
               <Image
@@ -38,14 +43,14 @@ const Page = async ({ params }: { params: { tweetId: string } }) => {
             </figure>
           )}
         </Link>
-      </h2>
-      <p>{tweet?.text}</p>
+      </h3>
+      <p className="text-xl">{tweet?.text}</p>
       {tweet?.image ? (
         <figure>
           <Image
             src={generateImageUrl(tweet.image, "tweetImage")}
             alt="Post Image"
-            className="h-auto w-full"
+            className="my-5 h-auto w-full rounded-xl"
             {...ImageProps}
           />
         </figure>

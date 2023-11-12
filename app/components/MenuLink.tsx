@@ -8,7 +8,7 @@ import useSWR from "swr";
 interface MenuLinkProps {
   pathname: string;
   href: string;
-  label: string;
+  label: any;
 }
 
 const MenuLink = ({ pathname, href, label }: MenuLinkProps) => {
@@ -20,7 +20,7 @@ const MenuLink = ({ pathname, href, label }: MenuLinkProps) => {
     }
   }, [isLoading, data?.data]);
   return (
-    <li>
+    <li className="font-light">
       <Link
         href={href}
         prefetch={false}
@@ -28,8 +28,8 @@ const MenuLink = ({ pathname, href, label }: MenuLinkProps) => {
           href.split("/")[1] === pathname.split("/")[1] && "font-bold"
         }`}
       >
-        {label.includes("http") ? (
-          <span className="flex items-center">
+        {typeof label === "string" && label.includes("http") ? (
+          <span className="flex items-center font-medium">
             <Image
               src={label}
               alt={!!name ? `${name}'s Avatar` : "User's Avatar"}
