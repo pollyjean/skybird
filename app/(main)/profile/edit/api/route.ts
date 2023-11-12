@@ -1,28 +1,33 @@
 import client from "@/libs/server/client";
-import { checkSessionUserId } from "@/libs/server/session";
+import { getServerActionSession } from "@/libs/server/session";
+import { handleErrors } from "@/utils";
 
-export async function POST(
-  request: Request,
-  { params }: { params: { userId: string } },
-) {
-  const sessionId = await checkSessionUserId(params.userId);
+export async function POST(request: Request) {
+  const session = await getServerActionSession();
+  const { email, username, avatar, profile } = await request.json();
 
-  if (!sessionId) {
-    return new Response("", { status: 400 });
-  }
-
-  const { avatar } = await request.json();
-
-  if (avatar) {
-    await client.user.update({
-      data: {
-        avatar,
+  try {
+    const user = await client.user.upsert({
+      where: { email },
+      create: {
+        email,
+        avatar: avatar ? avatar : null,
+        profile: profile ? profile : null,
       },
-      where: {
-        id: +sessionId,
+      update: {
+        username: username,
+        avatar,
+        profile,
       },
     });
+    session.user = {
+      id: user.id,
+      username: user.username || "anonymous",
+      email: user.email,
+    };
+    await session.save();
+    return new Response(JSON.stringify({ ok: true }), { status: 200 });
+  } catch (error: unknown) {
+    return handleErrors(error);
   }
-
-  return new Response(JSON.stringify({ ok: true }), { status: 200 });
 }

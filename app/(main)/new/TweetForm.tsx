@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 const TweetForm = () => {
-  const [preview, setPreview] = useState<FileList | string>();
+  const [preview, setPreview] = useState<FileList | Blob | string>();
   const {
     register,
     watch,
@@ -19,28 +19,34 @@ const TweetForm = () => {
   const [mutate, { loading, data, error }] =
     useMutation<FetchResults>("/new/api");
   const onSubmit: SubmitHandler<TweetFormValues> = async (formData) => {
-    if (formData.image) {
-      const { uploadURL } = await (
-        await fetch("/api/cloudflare", { method: "POST" })
-      ).json();
-      const form = new FormData();
-      form.append(
-        "file",
-        formData.image[0] as Blob,
-        `postImage-${formData.id}`,
-      );
-      const { result: data } = await (
-        await fetch(uploadURL, { method: "POST", body: form })
-      ).json();
-      mutate({ text: formData.text, image: data.id });
-    } else {
-      mutate({ text: formData.text });
+    try {
+      if (
+        formData.image &&
+        formData.image[0] &&
+        typeof formData.image === "object"
+      ) {
+        const { uploadURL } = await(
+          await fetch("/api/cloudflare", { method: "POST" }),
+        ).json();
+        const form = new FormData();
+        const file = formData.image[0];
+        form.append("file", file, `postImage-${formData.id}`);
+        const { result: data } = await(
+          await fetch(uploadURL, { method: "POST", body: form }),
+        ).json();
+        mutate({ text: formData.text, image: data.id });
+      } else {
+        mutate({ text: formData.text });
+      }
+    } catch (error) {
+      console.error(error);
     }
   };
   const image = watch("image");
   useEffect(() => {
-    if (image) {
-      setPreview(URL.createObjectURL(image[0] as Blob));
+    if (image && image[0] && typeof image === "object") {
+      const file = image[0];
+      setPreview(URL.createObjectURL(file));
     }
   }, [image]);
 

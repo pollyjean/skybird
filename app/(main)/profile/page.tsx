@@ -6,8 +6,10 @@ import Image from "next/image";
 import Link from "next/link";
 import Tweet from "@/components/Tweet";
 import { Fragment } from "react";
+import { unstable_noStore as noStore } from "next/cache";
 
 const Page = async () => {
+  noStore();
   const session = await getServerActionSession();
   const user = await client.user.findUnique({
     where: { id: +session.user.id },
